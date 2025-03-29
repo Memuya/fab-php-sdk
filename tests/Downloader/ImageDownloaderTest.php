@@ -21,8 +21,8 @@ class ImageDownloaderTest extends TestCase
         $this->uploadDirectory = sys_get_temp_dir() . '/images/';
         $this->imageDownloader = new ImageDownloader(
             $this->clientMock,
-            $this->uploadDirectory,
             $this->extractorMock,
+            $this->uploadDirectory,
         );
     }
 

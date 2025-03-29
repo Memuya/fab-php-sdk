@@ -32,14 +32,14 @@ class ImageDownloader
 
     /**
      * @param Client $client
-     * @param string $uploadDirectory
      * @param ImageUrlExtractor $extractor
+     * @param string $uploadDirectory
      */
-    public function __construct(Client $client, string $uploadDirectory, ImageUrlExtractor $extractor)
+    public function __construct(Client $client, ImageUrlExtractor $extractor, string $uploadDirectory)
     {
         $this->client = $client;
-        $this->uploadDirectory = sprintf('%s/', rtrim($uploadDirectory, '/'));
         $this->extractor = $extractor;
+        $this->uploadDirectory = sprintf('%s/', rtrim($uploadDirectory, '/'));
     }
 
     /**
