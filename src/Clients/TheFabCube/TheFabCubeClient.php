@@ -5,8 +5,8 @@ namespace Memuya\Fab\Clients\TheFabCube;
 use Memuya\Fab\Clients\Client;
 use Memuya\Fab\Clients\File\ConfigType;
 use Memuya\Fab\Clients\File\FileClient;
+use Memuya\Fab\Clients\File\Filters\Filterable;
 use Memuya\Fab\Clients\TheFabCube\Entities\Card;
-use Memuya\Fab\Clients\TheFabCube\Filters\Filterable;
 use Memuya\Fab\Clients\TheFabCube\Endpoints\Card\CardConfig;
 use Memuya\Fab\Clients\TheFabCube\Endpoints\Cards\CardsConfig;
 

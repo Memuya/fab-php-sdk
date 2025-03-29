@@ -23,4 +23,5 @@ enum Set: string
     case PartTheMistveil = 'MST'; // 2024
     case Rosetta = 'ROS'; // 2024
     case TheHunted = 'HNT'; // 2024
+    case HighSeas = 'SEA'; // 2025
 }

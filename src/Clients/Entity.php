@@ -1,6 +1,6 @@
 <?php
 
-namespace Memuya\Fab\Clients\TheFabCube\Entities;
+namespace Memuya\Fab\Clients;
 
 use Memuya\Fab\Utilities\Str;
 
