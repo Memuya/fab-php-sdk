@@ -5,6 +5,7 @@ namespace Memuya\Fab\Enums;
 enum HeroClass: string
 {
     case Assassin = 'assassin';
+    case Bard = 'bard';
     case Brute = 'brute';
     case Generic = 'generic';
     case Guardian = 'guardian';

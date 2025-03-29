@@ -58,7 +58,7 @@ final class FileClientTest extends TestCase
         $this->client->registerFilters([new FileClientTestCostFilter()]);
 
         $cards = $this->client->filterList(
-            new TestConfig(['cost' => '1'])
+            new TestConfig(['cost' => '1']),
         );
 
         $this->assertIsArray($cards);
@@ -70,7 +70,7 @@ final class FileClientTest extends TestCase
         $this->client->registerFilters([new FileClientTestCostFilter()]);
 
         $cards = $this->client->filterList(
-            new TestConfig(['cost' => '2'])
+            new TestConfig(['cost' => '2']),
         );
 
         $this->assertIsArray($cards);
