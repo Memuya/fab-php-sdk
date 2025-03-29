@@ -2,6 +2,8 @@
 
 namespace Memuya\Fab\Clients\TheFabCube\Entities;
 
+use Memuya\Fab\Clients\Entity;
+
 class Card extends Entity
 {
     public string $uniqueId;
