@@ -96,13 +96,7 @@ class ImageDownloader
         $cards = $this->client->getCards($filters);
 
         foreach ($cards as $card) {
-            // $printings = call_user_func(($this->extractor)(), $card);
             $printings = ($this->extractor)()($card);
-
-            // $printings = array_map(
-            //     fn(Printing $printing) => $printing->imageUrl,
-            //     $card->printings,
-            // );
 
             $imageUrls = array_merge(
                 $imageUrls,
