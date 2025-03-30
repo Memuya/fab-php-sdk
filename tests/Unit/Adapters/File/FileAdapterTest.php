@@ -11,7 +11,7 @@ final class FileAdapterTest extends TestCase
 
     public function setUp(): void
     {
-        $this->testCardsJsonFilePath = sprintf('%s/test_cards.json', dirname(__DIR__, 2));
+        $this->testCardsJsonFilePath = sprintf('%s/test_cards.json', dirname(__DIR__, 3));
 
         $this->adapter = new FileAdapter($this->testCardsJsonFilePath, [new FileAdapterTestIdentifierFilter()]);
         $this->adapter->registerConfig(SearchCriteriaType::MultiCard, FileAdapterTestCardsSearchCriteria::class);
