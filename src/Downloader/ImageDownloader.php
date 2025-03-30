@@ -9,39 +9,11 @@ use Memuya\Fab\Downloader\Extractors\ImageUrlExtractor;
 
 class ImageDownloader
 {
-    /**
-     * The adapter.
-     *
-     * @var Adapter
-     */
-    private Adapter $adapter;
-
-    /**
-     * The file system to write the downloaded images too.
-     *
-     * @var FilesystemOperator
-     */
-    private FilesystemOperator $filesystem;
-
-    /**
-     * The extractor used to extract the image URLs. This should line up
-     * with the data returned from the given Adapter.
-     *
-     * @var ImageUrlExtractor
-     */
-    private ImageUrlExtractor $extractor;
-
-    /**
-     * @param Adapter $adapter
-     * @param ImageUrlExtractor $extractor
-     * @param FilesystemOperator $filesystem
-     */
-    public function __construct(Adapter $adapter, ImageUrlExtractor $extractor, FilesystemOperator $filesystem)
-    {
-        $this->adapter = $adapter;
-        $this->extractor = $extractor;
-        $this->filesystem = $filesystem;
-    }
+    public function __construct(
+        private Adapter $adapter,
+        private ImageUrlExtractor $extractor,
+        private FilesystemOperator $filesystem,
+    ) {}
 
     /**
      * Download all images.
