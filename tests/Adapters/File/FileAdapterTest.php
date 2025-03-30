@@ -77,7 +77,7 @@ final class FileAdapterTest extends TestCase
         $this->assertCount(1, $cards);
     }
 
-    public function testCanRegisterDifferentConfigForCardsEndpoint(): void
+    public function testCanRegisterDifferentConfigForCardsSearch(): void
     {
         $this->adapter->registerFilters([new FileAdapterTestCostFilter()]);
         $this->adapter->registerConfig(SearchCriteriaType::MultiCard, TestSearchCriteria::class);
@@ -88,7 +88,7 @@ final class FileAdapterTest extends TestCase
         $this->assertCount(1, $cards);
     }
 
-    public function testCanRegisterDifferentConfigForCardEndpoint(): void
+    public function testCanRegisterDifferentConfigForCardSearch(): void
     {
         $this->adapter->registerFilters([new FileAdapterTestCostFilter()]);
         $this->adapter->registerConfig(SearchCriteriaType::SingleCard, TestSearchCriteria::class);
