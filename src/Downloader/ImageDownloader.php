@@ -138,11 +138,6 @@ class ImageDownloader
         return basename($url);
     }
 
-    public function setImageUrlExtractor(ImageUrlExtractor $extractor)
-    {
-        $this->extractor = $extractor;
-    }
-
     /**
      * Generate the full upload path and filename from the given URL.
      *
