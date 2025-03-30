@@ -1,5 +1,7 @@
 <?php
 
+use League\Flysystem\Filesystem;
+use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use Memuya\Fab\Clients\Client;
 use PHPUnit\Framework\TestCase;
 use Memuya\Fab\Downloader\ImageDownloader;
@@ -12,17 +14,16 @@ class ImageDownloaderTest extends TestCase
     private MockObject&Client $clientMock;
     private MockObject&ImageUrlExtractor $extractorMock;
     private ImageDownloader $imageDownloader;
-    private string $uploadDirectory;
 
     protected function setUp(): void
     {
         $this->clientMock = $this->createMock(Client::class);
         $this->extractorMock = $this->createMock(ImageUrlExtractor::class);
-        $this->uploadDirectory = sys_get_temp_dir() . '/images/';
+
         $this->imageDownloader = new ImageDownloader(
             $this->clientMock,
             $this->extractorMock,
-            $this->uploadDirectory,
+            new Filesystem(new InMemoryFilesystemAdapter()),
         );
     }
 
@@ -58,16 +59,5 @@ class ImageDownloaderTest extends TestCase
         $imageName = $this->imageDownloader->getImageNameFromUrl($url);
 
         $this->assertSame('image.jpg', $imageName);
-    }
-
-    public function testGenerateFullFilePathFromUrl(): void
-    {
-        $url = 'https://example.com/image.jpg';
-        $reflection = new \ReflectionClass(ImageDownloader::class);
-        $method = $reflection->getMethod('generateFullFilePathFromUrl');
-        $method->setAccessible(true);
-
-        $expectedPath = $this->uploadDirectory . 'image.jpg';
-        $this->assertSame($expectedPath, $method->invoke($this->imageDownloader, $url));
     }
 }

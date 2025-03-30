@@ -2,6 +2,7 @@
 
 namespace Memuya\Fab\Downloader;
 
+use League\Flysystem\FilesystemOperator;
 use Memuya\Fab\Enums\Set;
 use Memuya\Fab\Clients\Client;
 use Memuya\Fab\Downloader\Extractors\ImageUrlExtractor;
@@ -16,11 +17,11 @@ class ImageDownloader
     private Client $client;
 
     /**
-     * The directory path where the images will be stored.
+     * The file system to write the downloaded images too.
      *
-     * @var string
+     * @var FilesystemOperator
      */
-    private string $uploadDirectory;
+    private FilesystemOperator $filesystem;
 
     /**
      * The extractor used to extract the image URLs. This should line up
@@ -33,13 +34,13 @@ class ImageDownloader
     /**
      * @param Client $client
      * @param ImageUrlExtractor $extractor
-     * @param string $uploadDirectory
+     * @param FilesystemOperator $filesystem
      */
-    public function __construct(Client $client, ImageUrlExtractor $extractor, string $uploadDirectory)
+    public function __construct(Client $client, ImageUrlExtractor $extractor, FilesystemOperator $filesystem)
     {
         $this->client = $client;
         $this->extractor = $extractor;
-        $this->uploadDirectory = sprintf('%s/', rtrim($uploadDirectory, '/'));
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -53,22 +54,14 @@ class ImageDownloader
     }
 
     /**
-     * Download all images into a sub-folder for the given set.
+     * Download all images for the given set.
      *
      * @param Set $set
      * @return void
      */
     public function forSet(Set $set): void
     {
-        $originalUploadDirectory = $this->uploadDirectory;
-        $this->uploadDirectory = $this->uploadDirectory . $set->value . '/';
-
-        try {
-            $this->filterBy(['set' => $set]);
-        } finally {
-            $this->uploadDirectory = $originalUploadDirectory;
-        }
-
+        $this->filterBy(['set' => $set]);
     }
 
     /**
@@ -115,14 +108,10 @@ class ImageDownloader
      */
     public function downloadFromUrls(array $urls): void
     {
-        if (! is_dir($this->uploadDirectory)) {
-            mkdir(directory: $this->uploadDirectory, recursive: true);
-        }
-
         foreach ($urls as $url) {
-            file_put_contents(
-                $this->generateFullFilePathFromUrl($url),
-                file_get_contents($url),
+            $this->filesystem->write(
+                $this->getImageNameFromUrl($url),
+                file_get_contents($url)
             );
         }
     }
@@ -136,20 +125,5 @@ class ImageDownloader
     public function getImageNameFromUrl(string $url): string
     {
         return basename($url);
-    }
-
-    /**
-     * Generate the full upload path and filename from the given URL.
-     *
-     * @param string $url
-     * @return string
-     */
-    private function generateFullFilePathFromUrl(string $url): string
-    {
-        return sprintf(
-            '%s%s',
-            $this->uploadDirectory,
-            $this->getImageNameFromUrl($url),
-        );
     }
 }
