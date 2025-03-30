@@ -5,8 +5,8 @@ namespace Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards;
 use Memuya\Fab\Enums\Set;
 use Memuya\Fab\Enums\Pitch;
 use Memuya\Fab\Enums\Rarity;
-use Memuya\Fab\Adapters\SearchCriteria;
 use Memuya\Fab\Attributes\Parameter;
+use Memuya\Fab\Adapters\SearchCriteria;
 
 class CardsSearchCriteria extends SearchCriteria
 {

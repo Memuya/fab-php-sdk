@@ -4,8 +4,8 @@ namespace Memuya\Fab\Adapters\TheFabCube;
 
 use Memuya\Fab\Adapters\Adapter;
 use Memuya\Fab\Adapters\File\FileAdapter;
-use Memuya\Fab\Adapters\File\SearchCriteriaType;
 use Memuya\Fab\Adapters\File\Filters\Filterable;
+use Memuya\Fab\Adapters\File\SearchCriteriaType;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
 use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Card\CardSearchCriteria;
 use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;

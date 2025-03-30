@@ -1,8 +1,8 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use League\Flysystem\Filesystem;
 use Memuya\Fab\Adapters\Adapter;
-use PHPUnit\Framework\TestCase;
 use Memuya\Fab\Downloader\ImageDownloader;
 use PHPUnit\Framework\MockObject\MockObject;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Printing;
