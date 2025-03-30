@@ -52,12 +52,4 @@ class ImageDownloaderTest extends TestCase
         $this->assertCount(1, $urls);
         $this->assertSame('https://example.com/image1.jpg', $urls[0]);
     }
-
-    public function testGetImageNameFromUrl(): void
-    {
-        $url = 'https://example.com/path/to/image.jpg';
-        $imageName = $this->imageDownloader->getImageNameFromUrl($url);
-
-        $this->assertSame('image.jpg', $imageName);
-    }
 }

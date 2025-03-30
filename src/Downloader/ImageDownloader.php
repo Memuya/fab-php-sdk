@@ -78,7 +78,7 @@ class ImageDownloader
      * @param array<string> $urls
      * @return void
      */
-    public function downloadFromUrls(array $urls): void
+    private function downloadFromUrls(array $urls): void
     {
         foreach ($urls as $url) {
             $this->filesystem->write(
@@ -94,7 +94,7 @@ class ImageDownloader
      * @param string $url
      * @return string
      */
-    public function getImageNameFromUrl(string $url): string
+    private function getImageNameFromUrl(string $url): string
     {
         return basename($url);
     }
