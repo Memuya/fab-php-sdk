@@ -1,14 +1,14 @@
 <?php
 
-namespace Memuya\Fab\Adapters\TheFabCube\Endpoints\Cards;
+namespace Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards;
 
 use Memuya\Fab\Enums\Set;
 use Memuya\Fab\Enums\Pitch;
 use Memuya\Fab\Enums\Rarity;
-use Memuya\Fab\Adapters\Config;
+use Memuya\Fab\Adapters\SearchCriteria;
 use Memuya\Fab\Attributes\Parameter;
 
-class CardsConfig extends Config
+class CardsSearchCriteria extends SearchCriteria
 {
     /**
      * The name to filter by.

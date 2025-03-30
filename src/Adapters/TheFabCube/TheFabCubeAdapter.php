@@ -3,12 +3,12 @@
 namespace Memuya\Fab\Adapters\TheFabCube;
 
 use Memuya\Fab\Adapters\Adapter;
-use Memuya\Fab\Adapters\File\ConfigType;
 use Memuya\Fab\Adapters\File\FileAdapter;
+use Memuya\Fab\Adapters\File\SearchCriteriaType;
 use Memuya\Fab\Adapters\File\Filters\Filterable;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
-use Memuya\Fab\Adapters\TheFabCube\Endpoints\Card\CardConfig;
-use Memuya\Fab\Adapters\TheFabCube\Endpoints\Cards\CardsConfig;
+use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Card\CardSearchCriteria;
+use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
 
 /**
  * The FAB Cube is a Git repo that store an up-to-date list of all Flesh and Blood cards.
@@ -31,8 +31,8 @@ class TheFabCubeAdapter implements Adapter
             $filepath,
             $filters ?: $this->getDefaultFilters(),
         );
-        $this->fileAdapter->registerConfig(ConfigType::MultiCard, CardsConfig::class);
-        $this->fileAdapter->registerConfig(ConfigType::SingleCard, CardConfig::class);
+        $this->fileAdapter->registerConfig(SearchCriteriaType::MultiCard, CardsSearchCriteria::class);
+        $this->fileAdapter->registerConfig(SearchCriteriaType::SingleCard, CardSearchCriteria::class);
     }
 
     /**

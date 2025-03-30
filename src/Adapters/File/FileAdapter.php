@@ -5,10 +5,10 @@ namespace Memuya\Fab\Adapters\File;
 use ReflectionClass;
 use RuntimeException;
 use SplObjectStorage;
-use Memuya\Fab\Adapters\Config;
 use Memuya\Fab\Adapters\Adapter;
+use Memuya\Fab\Adapters\SearchCriteria;
 use Memuya\Fab\Adapters\File\Filters\Filterable;
-use Memuya\Fab\Exceptions\ConfigNotRegisteredException;
+use Memuya\Fab\Exceptions\SearchCriteriaNotRegisteredException;
 
 class FileAdapter implements Adapter
 {
@@ -27,16 +27,16 @@ class FileAdapter implements Adapter
     private array $filters = [];
 
     /**
-     * The registered config classes for each config type.
+     * The registered criteria classes for each criteria type.
      * Example:
      * [
-     *     ConfigType::MultiCard => CardsConfig::class,
-     *     ConfigType::SingleCard => CardConfig::class,
+     *     SearchCriteriaType::MultiCard => CardsConfig::class,
+     *     SearchCriteriaType::SingleCard => CardConfig::class,
      * ]
      *
-     * @var SplObjectStorage<ConfigType, class-string>
+     * @var SplObjectStorage<SearchCriteriaType, class-string>
      */
-    private SplObjectStorage $registeredConfig;
+    private SplObjectStorage $registeredSearchCriteria;
 
     /**
      * @param string $filepath
@@ -45,7 +45,7 @@ class FileAdapter implements Adapter
     public function __construct(string $filepath, array $filters = [])
     {
         $this->filepath = $filepath;
-        $this->registeredConfig = new SplObjectStorage();
+        $this->registeredSearchCriteria = new SplObjectStorage();
 
         $this->registerFilters($filters);
     }
@@ -69,13 +69,13 @@ class FileAdapter implements Adapter
     /**
      * Register the config
      *
-     * @param ConfigType $type
+     * @param SearchCriteriaType $type
      * @param class-string $config
      * @return void
      */
-    public function registerConfig(ConfigType $type, string $config): void
+    public function registerConfig(SearchCriteriaType $type, string $config): void
     {
-        $this->registeredConfig[$type] = $config;
+        $this->registeredSearchCriteria[$type] = $config;
     }
 
     /**
@@ -84,7 +84,7 @@ class FileAdapter implements Adapter
     public function getCards(array $filters = []): array
     {
         return $this->filterList(
-            $this->resolveConfig(ConfigType::MultiCard, $filters),
+            $this->resolveSearchCriteria(SearchCriteriaType::MultiCard, $filters),
         );
     }
 
@@ -94,17 +94,17 @@ class FileAdapter implements Adapter
     public function getCard(string $identifier, string $key = 'name'): array
     {
         return $this->filterList(
-            $this->resolveConfig(ConfigType::SingleCard, [$key => $identifier]),
+            $this->resolveSearchCriteria(SearchCriteriaType::SingleCard, [$key => $identifier]),
         )[0] ?? [];
     }
 
     /**
      * Read and filter cards from the registered JSON file.
      *
-     * @param Config $config
+     * @param SearchCriteria $config
      * @return array<string, mixed>
      */
-    public function filterList(Config $config): array
+    public function filterList(SearchCriteria $config): array
     {
         $cards = $this->readFileToJson();
         $filters = $config->getParameterValues();
@@ -136,31 +136,31 @@ class FileAdapter implements Adapter
     }
 
     /**
-     * Check to see if the given config type has been registered.
+     * Check to see if the given criteria type has been registered.
      *
-     * @param ConfigType $type
+     * @param SearchCriteriaType $type
      * @return bool
      */
-    private function isConfigRegisteredFor(ConfigType $type): bool
+    private function isSearchCriteriaRegisteredFor(SearchCriteriaType $type): bool
     {
-        return isset($this->registeredConfig[$type]);
+        return isset($this->registeredSearchCriteria[$type]);
     }
 
     /**
-     * Resolve the config object needed for the given type.
+     * Resolve the search criteria object needed for the given type.
      *
-     * @param ConfigType $type
+     * @param SearchCriteriaType $type
      * @param array<string, mixed> $filters
-     * @return Config
-     * @throws ConfigNotRegisteredException
+     * @return SearchCriteria
+     * @throws SearchCriteriaNotRegisteredException
      */
-    private function resolveConfig(ConfigType $type, array $filters): Config
+    private function resolveSearchCriteria(SearchCriteriaType $type, array $filters): SearchCriteria
     {
-        if (! $this->isConfigRegisteredFor($type)) {
-            throw new ConfigNotRegisteredException("Config not registerd for {$type->name}.");
+        if (! $this->isSearchCriteriaRegisteredFor($type)) {
+            throw new SearchCriteriaNotRegisteredException("Search criteria not registerd for {$type->name}.");
         }
 
-        $reflection = new ReflectionClass($this->registeredConfig[$type]);
+        $reflection = new ReflectionClass($this->registeredSearchCriteria[$type]);
 
         return $reflection->newInstance($filters);
     }

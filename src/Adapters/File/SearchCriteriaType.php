@@ -2,7 +2,7 @@
 
 namespace Memuya\Fab\Adapters\File;
 
-enum ConfigType
+enum SearchCriteriaType
 {
     case MultiCard; // Adapter::getCards()
     case SingleCard; // Adapter::getCard()

@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Memuya\Fab\Adapters\File\ConfigType;
+use Memuya\Fab\Adapters\File\SearchCriteriaType;
 use Memuya\Fab\Adapters\File\FileAdapter;
 
 final class FileAdapterTest extends TestCase
@@ -14,8 +14,8 @@ final class FileAdapterTest extends TestCase
         $this->testCardsJsonFilePath = sprintf('%s/test_cards.json', dirname(__DIR__, 2));
 
         $this->adapter = new FileAdapter($this->testCardsJsonFilePath, [new FileAdapterTestIdentifierFilter()]);
-        $this->adapter->registerConfig(ConfigType::MultiCard, FileAdapterTestCardsConfig::class);
-        $this->adapter->registerConfig(ConfigType::SingleCard, FileAdapterTestCardConfig::class);
+        $this->adapter->registerConfig(SearchCriteriaType::MultiCard, FileAdapterTestCardsSearchCriteria::class);
+        $this->adapter->registerConfig(SearchCriteriaType::SingleCard, FileAdapterTestCardSearchCriteria::class);
     }
 
     public function testCanReadFromJsonFile(): void
@@ -58,7 +58,7 @@ final class FileAdapterTest extends TestCase
         $this->adapter->registerFilters([new FileAdapterTestCostFilter()]);
 
         $cards = $this->adapter->filterList(
-            new TestConfig(['cost' => '1']),
+            new TestSearchCriteria(['cost' => '1']),
         );
 
         $this->assertIsArray($cards);
@@ -70,7 +70,7 @@ final class FileAdapterTest extends TestCase
         $this->adapter->registerFilters([new FileAdapterTestCostFilter()]);
 
         $cards = $this->adapter->filterList(
-            new TestConfig(['cost' => '2']),
+            new TestSearchCriteria(['cost' => '2']),
         );
 
         $this->assertIsArray($cards);
@@ -80,7 +80,7 @@ final class FileAdapterTest extends TestCase
     public function testCanRegisterDifferentConfigForCardsEndpoint(): void
     {
         $this->adapter->registerFilters([new FileAdapterTestCostFilter()]);
-        $this->adapter->registerConfig(ConfigType::MultiCard, TestConfig::class);
+        $this->adapter->registerConfig(SearchCriteriaType::MultiCard, TestSearchCriteria::class);
 
         $cards = $this->adapter->getCards(['cost' => '1']);
 
@@ -91,7 +91,7 @@ final class FileAdapterTest extends TestCase
     public function testCanRegisterDifferentConfigForCardEndpoint(): void
     {
         $this->adapter->registerFilters([new FileAdapterTestCostFilter()]);
-        $this->adapter->registerConfig(ConfigType::SingleCard, TestConfig::class);
+        $this->adapter->registerConfig(SearchCriteriaType::SingleCard, TestSearchCriteria::class);
 
         $card = $this->adapter->getCard('1', 'cost');
 
@@ -100,19 +100,19 @@ final class FileAdapterTest extends TestCase
     }
 }
 
-class FileAdapterTestCardsConfig extends \Memuya\Fab\Adapters\Config
+class FileAdapterTestCardsSearchCriteria extends \Memuya\Fab\Adapters\SearchCriteria
 {
     #[\Memuya\Fab\Attributes\Parameter]
     public string $identifier;
 }
 
-class FileAdapterTestCardConfig extends \Memuya\Fab\Adapters\Config
+class FileAdapterTestCardSearchCriteria extends \Memuya\Fab\Adapters\SearchCriteria
 {
     #[\Memuya\Fab\Attributes\Parameter]
     public string $identifier;
 }
 
-class TestConfig extends \Memuya\Fab\Adapters\Config
+class TestSearchCriteria extends \Memuya\Fab\Adapters\SearchCriteria
 {
     #[\Memuya\Fab\Attributes\Parameter]
     public string $identifier;

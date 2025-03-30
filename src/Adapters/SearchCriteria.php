@@ -10,27 +10,27 @@ use Memuya\Fab\Attributes\Parameter;
 use Memuya\Fab\Attributes\QueryString;
 use Memuya\Fab\Exceptions\PropertyNotSetException;
 
-abstract class Config
+abstract class SearchCriteria
 {
     /**
      * Set up all the properties on the child class with the data provided.
      *
-     * @param array<string, mixed> $config
+     * @param array<string, mixed> $criteria
      */
-    public function __construct(array $config = [])
+    public function __construct(array $criteria = [])
     {
-        $this->setConfigFromArray($config);
+        $this->setSearchCriteriaFromArray($criteria);
     }
 
     /**
-     * Set up the config class proerties from the given array.
+     * Set up the criteria class proerties from the given array.
      *
-     * @param array<string, mixed> $config
+     * @param array<string, mixed> $criteria
      * @return void
      */
-    public function setConfigFromArray(array $config): void
+    public function setSearchCriteriaFromArray(array $criteria): void
     {
-        foreach ($config as $property => $value) {
+        foreach ($criteria as $property => $value) {
             $this->setProperty($property, $value);
         }
     }

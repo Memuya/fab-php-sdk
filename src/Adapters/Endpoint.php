@@ -24,9 +24,9 @@ interface Endpoint
     public function getHttpMethod(): HttpMethod;
 
     /**
-     * Return the related config.
+     * Return the related search criteria.
      *
-     * @return Config
+     * @return SearchCriteria
      */
-    public function getConfig(): Config;
+    public function getConfig(): SearchCriteria;
 }

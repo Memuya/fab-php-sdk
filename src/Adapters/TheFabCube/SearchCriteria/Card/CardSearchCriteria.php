@@ -1,11 +1,11 @@
 <?php
 
-namespace Memuya\Fab\Adapters\TheFabCube\Endpoints\Card;
+namespace Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Card;
 
-use Memuya\Fab\Adapters\Config;
+use Memuya\Fab\Adapters\SearchCriteria;
 use Memuya\Fab\Attributes\Parameter;
 
-class CardConfig extends Config
+class CardSearchCriteria extends SearchCriteria
 {
     /**
      * Name to search with.

@@ -1,161 +1,161 @@
 <?php
 
+use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
 use Memuya\Fab\Enums\Set;
 use Memuya\Fab\Enums\Pitch;
 use Memuya\Fab\Enums\Rarity;
 use PHPUnit\Framework\TestCase;
-use Memuya\Fab\Adapters\TheFabCube\Endpoints\Cards\CardsConfig;
 
-final class CardsConfigTest extends TestCase
+final class CardsSearchCriteriaTest extends TestCase
 {
     public function testCanSetValidName()
     {
         $name = 'test';
-        $config = new CardsConfig(['name' => $name]);
+        $config = new CardsSearchCriteria(['name' => $name]);
         $this->assertSame($name, $config->name);
     }
 
     public function testCanSetValidPitch()
     {
-        $config = new CardsConfig(['pitch' => Pitch::One]);
+        $config = new CardsSearchCriteria(['pitch' => Pitch::One]);
         $this->assertSame(Pitch::One, $config->pitch);
     }
 
     public function testCanSetValidCost()
     {
         $cost = '3';
-        $config = new CardsConfig(['cost' => $cost]);
+        $config = new CardsSearchCriteria(['cost' => $cost]);
         $this->assertSame($cost, $config->cost);
     }
 
     public function testCanSetValidSetId()
     {
         $cardId = 'set123';
-        $config = new CardsConfig(['card_id' => $cardId]);
+        $config = new CardsSearchCriteria(['card_id' => $cardId]);
         $this->assertSame($cardId, $config->card_id);
     }
 
     public function testCanSetValidPower()
     {
         $power = '5';
-        $config = new CardsConfig(['power' => $power]);
+        $config = new CardsSearchCriteria(['power' => $power]);
         $this->assertSame($power, $config->power);
     }
 
     public function testCanSetValidUniqueId()
     {
         $uniqueId = 'unique456';
-        $config = new CardsConfig(['unique_id' => $uniqueId]);
+        $config = new CardsSearchCriteria(['unique_id' => $uniqueId]);
         $this->assertSame($uniqueId, $config->unique_id);
     }
 
     public function testCanSetValidDefense()
     {
         $defense = '3';
-        $config = new CardsConfig(['defense' => $defense]);
+        $config = new CardsSearchCriteria(['defense' => $defense]);
         $this->assertSame($defense, $config->defense);
     }
 
     public function testCanSetValidHealth()
     {
         $health = '7';
-        $config = new CardsConfig(['health' => $health]);
+        $config = new CardsSearchCriteria(['health' => $health]);
         $this->assertSame($health, $config->health);
     }
 
     public function testCanSetValidIntelligence()
     {
         $intelligence = '4';
-        $config = new CardsConfig(['intelligence' => $intelligence]);
+        $config = new CardsSearchCriteria(['intelligence' => $intelligence]);
         $this->assertSame($intelligence, $config->intelligence);
     }
 
     public function testCanSetValidArcane()
     {
         $arcane = '2';
-        $config = new CardsConfig(['arcane' => $arcane]);
+        $config = new CardsSearchCriteria(['arcane' => $arcane]);
         $this->assertSame($arcane, $config->arcane);
     }
 
     public function testCanSetValidTypes()
     {
         $types = ['attack', 'action'];
-        $config = new CardsConfig(['types' => $types]);
+        $config = new CardsSearchCriteria(['types' => $types]);
         $this->assertSame($types, $config->types);
     }
 
     public function testCanSetValidCardKeywords()
     {
         $keywords = ['keyword1', 'keyword2'];
-        $config = new CardsConfig(['card_keywords' => $keywords]);
+        $config = new CardsSearchCriteria(['card_keywords' => $keywords]);
         $this->assertSame($keywords, $config->card_keywords);
     }
 
     public function testCanSetValidAbilitiesAndEffects()
     {
         $effects = ['effect1', 'effect2'];
-        $config = new CardsConfig(['abilities_and_effects' => $effects]);
+        $config = new CardsSearchCriteria(['abilities_and_effects' => $effects]);
         $this->assertSame($effects, $config->abilities_and_effects);
     }
 
     public function testCanSetValidAbilityAndEffectKeywords()
     {
         $keywords = ['ability1', 'effect2'];
-        $config = new CardsConfig(['ability_and_effect_keywords' => $keywords]);
+        $config = new CardsSearchCriteria(['ability_and_effect_keywords' => $keywords]);
         $this->assertSame($keywords, $config->ability_and_effect_keywords);
     }
 
     public function testCanSetValidGrantedKeywords()
     {
         $grantedKeywords = ['granted1', 'granted2'];
-        $config = new CardsConfig(['granted_keywords' => $grantedKeywords]);
+        $config = new CardsSearchCriteria(['granted_keywords' => $grantedKeywords]);
         $this->assertSame($grantedKeywords, $config->granted_keywords);
     }
 
     public function testCanSetValidRemovedKeywords()
     {
         $removedKeywords = ['removed1', 'removed2'];
-        $config = new CardsConfig(['removed_keywords' => $removedKeywords]);
+        $config = new CardsSearchCriteria(['removed_keywords' => $removedKeywords]);
         $this->assertSame($removedKeywords, $config->removed_keywords);
     }
 
     public function testCanSetValidInteractsWithKeywords()
     {
         $keywords = ['keyword1', 'keyword3'];
-        $config = new CardsConfig(['interacts_with_keywords' => $keywords]);
+        $config = new CardsSearchCriteria(['interacts_with_keywords' => $keywords]);
         $this->assertSame($keywords, $config->interacts_with_keywords);
     }
 
     public function testCanSetValidFunctionalText()
     {
         $text = 'Some functional text';
-        $config = new CardsConfig(['functional_text' => $text]);
+        $config = new CardsSearchCriteria(['functional_text' => $text]);
         $this->assertSame($text, $config->functional_text);
     }
 
     public function testCanSetValidFunctionalTextPlain()
     {
         $text = 'Plain functional text';
-        $config = new CardsConfig(['functional_text_plain' => $text]);
+        $config = new CardsSearchCriteria(['functional_text_plain' => $text]);
         $this->assertSame($text, $config->functional_text_plain);
     }
 
     public function testCanSetValidTypeText()
     {
         $typeText = 'Action';
-        $config = new CardsConfig(['type_text' => $typeText]);
+        $config = new CardsSearchCriteria(['type_text' => $typeText]);
         $this->assertSame($typeText, $config->type_text);
     }
 
     public function testCanSetValidSet()
     {
-        $config = new CardsConfig(['set' => Set::Monarch]);
+        $config = new CardsSearchCriteria(['set' => Set::Monarch]);
         $this->assertSame(Set::Monarch, $config->set);
     }
 
     public function testCanSetValidRarity()
     {
-        $config = new CardsConfig(['rarity' => Rarity::Fabled]);
+        $config = new CardsSearchCriteria(['rarity' => Rarity::Fabled]);
         $this->assertSame(Rarity::Fabled, $config->rarity);
     }
 
@@ -181,7 +181,7 @@ final class CardsConfigTest extends TestCase
         ];
 
         foreach ($fields as $field => $value) {
-            $config = new CardsConfig([$field => $value]);
+            $config = new CardsSearchCriteria([$field => $value]);
 
             $this->assertSame($value, $config->{$field});
         }
