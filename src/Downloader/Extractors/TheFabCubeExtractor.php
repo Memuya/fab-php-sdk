@@ -6,7 +6,7 @@ use Closure;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Printing;
 
-class TheFabCubeClientExtractor implements ImageUrlExtractor
+class TheFabCubeExtractor implements ImageUrlExtractor
 {
     public function __invoke(): Closure
     {
