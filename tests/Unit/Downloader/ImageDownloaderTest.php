@@ -1,27 +1,27 @@
 <?php
 
 use League\Flysystem\Filesystem;
-use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
-use Memuya\Fab\Clients\Client;
+use Memuya\Fab\Adapters\Adapter;
 use PHPUnit\Framework\TestCase;
 use Memuya\Fab\Downloader\ImageDownloader;
 use PHPUnit\Framework\MockObject\MockObject;
-use Memuya\Fab\Clients\TheFabCube\Entities\Printing;
+use Memuya\Fab\Adapters\TheFabCube\Entities\Printing;
 use Memuya\Fab\Downloader\Extractors\ImageUrlExtractor;
+use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 
 class ImageDownloaderTest extends TestCase
 {
-    private MockObject&Client $clientMock;
+    private MockObject&Adapter $adapterMock;
     private MockObject&ImageUrlExtractor $extractorMock;
     private ImageDownloader $imageDownloader;
 
     protected function setUp(): void
     {
-        $this->clientMock = $this->createMock(Client::class);
+        $this->adapterMock = $this->createMock(Adapter::class);
         $this->extractorMock = $this->createMock(ImageUrlExtractor::class);
 
         $this->imageDownloader = new ImageDownloader(
-            $this->clientMock,
+            $this->adapterMock,
             $this->extractorMock,
             new Filesystem(new InMemoryFilesystemAdapter()),
         );
@@ -41,7 +41,7 @@ class ImageDownloaderTest extends TestCase
             ->method('__invoke')
             ->willReturn(fn($card) => [$printing->imageUrl]);
 
-        $this->clientMock
+        $this->adapterMock
             ->expects($this->once())
             ->method('getCards')
             ->with([])

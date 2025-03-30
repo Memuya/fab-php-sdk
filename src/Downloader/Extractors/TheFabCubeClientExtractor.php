@@ -3,8 +3,8 @@
 namespace Memuya\Fab\Downloader\Extractors;
 
 use Closure;
-use Memuya\Fab\Clients\TheFabCube\Entities\Card;
-use Memuya\Fab\Clients\TheFabCube\Entities\Printing;
+use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
+use Memuya\Fab\Adapters\TheFabCube\Entities\Printing;
 
 class TheFabCubeClientExtractor implements ImageUrlExtractor
 {

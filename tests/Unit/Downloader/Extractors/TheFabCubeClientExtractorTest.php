@@ -1,8 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Memuya\Fab\Clients\TheFabCube\Entities\Card;
-use Memuya\Fab\Clients\TheFabCube\Entities\Printing;
+use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
+use Memuya\Fab\Adapters\TheFabCube\Entities\Printing;
 use Memuya\Fab\Downloader\Extractors\TheFabCubeClientExtractor;
 
 class TheFabCubeClientExtractorTest extends TestCase

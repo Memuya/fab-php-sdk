@@ -2,19 +2,19 @@
 
 namespace Memuya\Fab\Downloader;
 
-use League\Flysystem\FilesystemOperator;
 use Memuya\Fab\Enums\Set;
-use Memuya\Fab\Clients\Client;
+use Memuya\Fab\Adapters\Adapter;
+use League\Flysystem\FilesystemOperator;
 use Memuya\Fab\Downloader\Extractors\ImageUrlExtractor;
 
 class ImageDownloader
 {
     /**
-     * The client.
+     * The adapter.
      *
-     * @var Client
+     * @var Adapter
      */
-    private Client $client;
+    private Adapter $adapter;
 
     /**
      * The file system to write the downloaded images too.
@@ -25,20 +25,20 @@ class ImageDownloader
 
     /**
      * The extractor used to extract the image URLs. This should line up
-     * with the data returned from the given Client.
+     * with the data returned from the given Adapter.
      *
      * @var ImageUrlExtractor
      */
     private ImageUrlExtractor $extractor;
 
     /**
-     * @param Client $client
+     * @param Adapter $adapter
      * @param ImageUrlExtractor $extractor
      * @param FilesystemOperator $filesystem
      */
-    public function __construct(Client $client, ImageUrlExtractor $extractor, FilesystemOperator $filesystem)
+    public function __construct(Adapter $adapter, ImageUrlExtractor $extractor, FilesystemOperator $filesystem)
     {
-        $this->client = $client;
+        $this->adapter = $adapter;
         $this->extractor = $extractor;
         $this->filesystem = $filesystem;
     }
@@ -86,7 +86,7 @@ class ImageDownloader
     public function getImageUrls(array $filters = []): array
     {
         $imageUrls = [];
-        $cards = $this->client->getCards($filters);
+        $cards = $this->adapter->getCards($filters);
 
         foreach ($cards as $card) {
             $printings = ($this->extractor)()($card);
