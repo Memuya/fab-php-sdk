@@ -78,14 +78,25 @@ class ImageDownloader
      * @param array<string> $urls
      * @return void
      */
-    private function downloadFromUrls(array $urls): void
+    public function downloadFromUrls(array $urls): void
     {
         foreach ($urls as $url) {
             $this->filesystem->write(
                 $this->getImageNameFromUrl($url),
-                file_get_contents($url),
+                $this->getImageContentForUrl($url),
             );
         }
+    }
+
+    /**
+     * Download the image content from the given URL.
+     *
+     * @param string $url
+     * @return string|false
+     */
+    public function getImageContentForUrl(string $url): string|false
+    {
+        return file_get_contents($url);
     }
 
     /**

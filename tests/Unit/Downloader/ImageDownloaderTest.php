@@ -52,4 +52,33 @@ class ImageDownloaderTest extends TestCase
         $this->assertCount(1, $urls);
         $this->assertSame('https://example.com/image1.jpg', $urls[0]);
     }
+
+    public function testDownloadFromUrls(): void
+    {
+        /** @var MockObject&Adapter */
+        $adapter = $this->createMock(Adapter::class);
+        /** @var MockObject&ImageUrlExtractor */
+        $extractor = $this->createMock(ImageUrlExtractor::class);
+        $filesystem = new Filesystem(new InMemoryFilesystemAdapter());
+
+        /** @var MockObject&ImageDownloader */
+        $downloader = $this->getMockBuilder(ImageDownloader::class)
+            ->onlyMethods(['getImageContentForUrl'])
+            ->setConstructorArgs([$adapter, $extractor, $filesystem])
+            ->getMock();
+
+        $downloader->method('getImageContentForUrl')
+            ->willReturn('fake_image_content');
+
+        $urls = [
+            'https://example.com/image1.jpg',
+            'https://example.com/image2.png',
+        ];
+
+        $downloader->downloadFromUrls($urls);
+
+        $this->assertTrue($filesystem->fileExists('image1.jpg'));
+        $this->assertTrue($filesystem->fileExists('image2.png'));
+    }
+
 }
