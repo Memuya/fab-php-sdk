@@ -83,7 +83,7 @@ class ImageDownloader
         foreach ($urls as $url) {
             $this->filesystem->write(
                 $this->getImageNameFromUrl($url),
-                $this->getImageContentForUrl($url),
+                $this->getImageContentFromUrl($url),
             );
         }
     }
@@ -94,7 +94,7 @@ class ImageDownloader
      * @param string $url
      * @return string|false
      */
-    public function getImageContentForUrl(string $url): string|false
+    public function getImageContentFromUrl(string $url): string|false
     {
         return file_get_contents($url);
     }

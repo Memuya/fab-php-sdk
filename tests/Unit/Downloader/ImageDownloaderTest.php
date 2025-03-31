@@ -63,11 +63,11 @@ class ImageDownloaderTest extends TestCase
 
         /** @var MockObject&ImageDownloader */
         $downloader = $this->getMockBuilder(ImageDownloader::class)
-            ->onlyMethods(['getImageContentForUrl'])
+            ->onlyMethods(['getImageContentFromUrl'])
             ->setConstructorArgs([$adapter, $extractor, $filesystem])
             ->getMock();
 
-        $downloader->method('getImageContentForUrl')
+        $downloader->method('getImageContentFromUrl')
             ->willReturn('fake_image_content');
 
         $urls = [
