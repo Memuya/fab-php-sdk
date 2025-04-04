@@ -5,8 +5,9 @@ namespace Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards;
 use Memuya\Fab\Enums\Set;
 use Memuya\Fab\Enums\Pitch;
 use Memuya\Fab\Enums\Rarity;
-use Memuya\Fab\Adapters\SearchCriteria;
 use Memuya\Fab\Attributes\Parameter;
+use Memuya\Fab\Adapters\SearchCriteria;
+use Memuya\Fab\Utilities\CompareWithOperator;
 
 class CardsSearchCriteria extends SearchCriteria
 {
@@ -21,10 +22,10 @@ class CardsSearchCriteria extends SearchCriteria
     /**
      * The pitch to filter by.
      *
-     * @var Pitch
+    * @var CompareWithOperator<Pitch>
      */
     #[Parameter]
-    public Pitch $pitch;
+    public CompareWithOperator $pitch;
 
     /**
      * The cost to filter by.

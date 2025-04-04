@@ -107,12 +107,12 @@ class FileAdapter implements Adapter
     public function filterList(SearchCriteria $config): array
     {
         $cards = $this->readFileToJson();
-        $filters = $config->getParameterValues();
+        $criteria = $config->getParameterValues();
 
         /** @var Filterable $filter */
         foreach ($this->filters as $filter) {
-            if ($filter->canResolve($filters)) {
-                $cards = $filter->applyTo($cards, $filters);
+            if ($filter->canResolve($criteria)) {
+                $cards = $filter->applyTo($cards, $criteria);
             }
         }
 
