@@ -1,8 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Memuya\Fab\Adapters\File\SearchCriteriaType;
 use Memuya\Fab\Adapters\File\FileAdapter;
+use Memuya\Fab\Adapters\File\SearchCriteriaType;
 
 final class FileAdapterTest extends TestCase
 {

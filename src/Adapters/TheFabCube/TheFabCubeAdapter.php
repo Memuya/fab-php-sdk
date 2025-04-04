@@ -4,8 +4,8 @@ namespace Memuya\Fab\Adapters\TheFabCube;
 
 use Memuya\Fab\Adapters\Adapter;
 use Memuya\Fab\Adapters\File\FileAdapter;
-use Memuya\Fab\Adapters\File\SearchCriteriaType;
 use Memuya\Fab\Adapters\File\Filters\Filterable;
+use Memuya\Fab\Adapters\File\SearchCriteriaType;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
 use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Card\CardSearchCriteria;
 use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
@@ -72,7 +72,7 @@ class TheFabCubeAdapter implements Adapter
      */
     public function registerFilters(array $filters): void
     {
-        $this->getfileAdapter()->registerFilters($filters);
+        $this->getFileAdapter()->registerFilters($filters);
     }
 
     /**
@@ -80,7 +80,7 @@ class TheFabCubeAdapter implements Adapter
      *
      * @return fileAdapter
      */
-    public function getfileAdapter(): fileAdapter
+    public function getFileAdapter(): fileAdapter
     {
         return $this->fileAdapter;
     }
