@@ -18,7 +18,7 @@ class ImageDownloader
     /**
      * Download a list of images based on the given filters.
      *
-     * @param array $filters
+     * @param SearchCriteria $searchCriteria
      * @return void
      */
     public function filterBy(SearchCriteria $searchCriteria): void
