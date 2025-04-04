@@ -2,6 +2,7 @@
 
 use Memuya\Fab\Enums\Pitch;
 use PHPUnit\Framework\TestCase;
+use Memuya\Fab\Utilities\CompareWithOperator;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
 use Memuya\Fab\Adapters\TheFabCube\TheFabCubeAdapter;
 
@@ -27,7 +28,7 @@ final class TheFabCubeAdapterTest extends TestCase
     {
         $cards = $this->adapter->getCards([
             'name' => '10,000 Year Reunion',
-            'pitch' => Pitch::One,
+            'pitch' => new CompareWithOperator(Pitch::One),
         ]);
 
         $this->assertNotEmpty($cards);
@@ -40,7 +41,7 @@ final class TheFabCubeAdapterTest extends TestCase
     {
         $cards = $this->adapter->getCards([
             'name' => '10,000 Year Reunion',
-            'pitch' => Pitch::Two,
+            'pitch' => new CompareWithOperator(Pitch::Two),
         ]);
 
         $this->assertEmpty($cards);

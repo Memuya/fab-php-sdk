@@ -4,6 +4,7 @@ use Memuya\Fab\Enums\Set;
 use Memuya\Fab\Enums\Pitch;
 use Memuya\Fab\Enums\Rarity;
 use PHPUnit\Framework\TestCase;
+use Memuya\Fab\Utilities\CompareWithOperator;
 use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
 
 final class CardsSearchCriteriaTest extends TestCase
@@ -17,8 +18,10 @@ final class CardsSearchCriteriaTest extends TestCase
 
     public function testCanSetValidPitch()
     {
-        $config = new CardsSearchCriteria(['pitch' => Pitch::One]);
-        $this->assertSame(Pitch::One, $config->pitch);
+        $config = new CardsSearchCriteria(['pitch' => new CompareWithOperator(Pitch::One)]);
+
+        $this->assertInstanceOf(CompareWithOperator::class, $config->pitch);
+        $this->assertSame(Pitch::One, $config->pitch->value);
     }
 
     public function testCanSetValidCost()
