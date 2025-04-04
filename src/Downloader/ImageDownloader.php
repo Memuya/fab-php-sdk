@@ -2,8 +2,8 @@
 
 namespace Memuya\Fab\Downloader;
 
-use Memuya\Fab\Enums\Set;
 use Memuya\Fab\Adapters\Adapter;
+use Memuya\Fab\Adapters\SearchCriteria;
 use League\Flysystem\FilesystemOperator;
 use Memuya\Fab\Downloader\Extractors\ImageUrlExtractor;
 
@@ -16,49 +16,28 @@ class ImageDownloader
     ) {}
 
     /**
-     * Download all images.
-     *
-     * @return void
-     */
-    public function downloadAll(): void
-    {
-        $this->filterBy();
-    }
-
-    /**
-     * Download all images for the given set.
-     *
-     * @param Set $set
-     * @return void
-     */
-    public function forSet(Set $set): void
-    {
-        $this->filterBy(['set' => $set]);
-    }
-
-    /**
      * Download a list of images based on the given filters.
      *
      * @param array $filters
      * @return void
      */
-    public function filterBy(array $filters = []): void
+    public function filterBy(SearchCriteria $searchCriteria): void
     {
         $this->downloadFromUrls(
-            $this->getImageUrls($filters),
+            $this->getImageUrls($searchCriteria),
         );
     }
 
     /**
      * Return all the image URLs based on the given filters.
      *
-     * @param array<string, mixed> $filters
+     * @param SearchCriteria $searchCriteria
      * @return array<string>
      */
-    public function getImageUrls(array $filters = []): array
+    public function getImageUrls(SearchCriteria $searchCriteria): array
     {
         $imageUrls = [];
-        $cards = $this->adapter->getCards($filters);
+        $cards = $this->adapter->getCards($searchCriteria);
 
         foreach ($cards as $card) {
             $printings = ($this->extractor)()($card);
