@@ -5,6 +5,7 @@ use PHPUnit\Framework\TestCase;
 use Memuya\Fab\Utilities\CompareWithOperator;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
 use Memuya\Fab\Adapters\TheFabCube\TheFabCubeAdapter;
+use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
 
 final class TheFabCubeAdapterTest extends TestCase
 {
@@ -19,17 +20,19 @@ final class TheFabCubeAdapterTest extends TestCase
 
     public function testCanReadFromJsonFile(): void
     {
-        $cards = $this->adapter->getCards();
+        $cards = $this->adapter->getCards(new CardsSearchCriteria());
 
         $this->assertNotEmpty($cards);
     }
 
     public function testCanFilterResults(): void
     {
-        $cards = $this->adapter->getCards([
-            'name' => '10,000 Year Reunion',
-            'pitch' => new CompareWithOperator(Pitch::One),
-        ]);
+        $cards = $this->adapter->getCards(
+            new CardsSearchCriteria([
+                'name' => '10,000 Year Reunion',
+                'pitch' => new CompareWithOperator(Pitch::One),
+            ]),
+        );
 
         $this->assertNotEmpty($cards);
         $this->assertCount(1, $cards);
@@ -39,27 +42,13 @@ final class TheFabCubeAdapterTest extends TestCase
 
     public function testResultIsEmptyWhenFiltersDoNotMatchACard(): void
     {
-        $cards = $this->adapter->getCards([
-            'name' => '10,000 Year Reunion',
-            'pitch' => new CompareWithOperator(Pitch::Two),
-        ]);
+        $cards = $this->adapter->getCards(
+            new CardsSearchCriteria([
+                'name' => '10,000 Year Reunion',
+                'pitch' => new CompareWithOperator(Pitch::Two),
+            ]),
+        );
 
         $this->assertEmpty($cards);
-    }
-
-    public function testCanReturnASingleCard(): void
-    {
-        // Purposely using a lowercase name.
-        $card = $this->adapter->getCard('luminaris');
-
-        $this->assertInstanceOf(Card::class, $card);
-        $this->assertSame('Luminaris', $card->name);
-    }
-
-    public function testNullIsReturnedIfSingleCardIsNotFound(): void
-    {
-        $card = $this->adapter->getCard('this_does_not_exist');
-
-        $this->assertNull($card);
     }
 }

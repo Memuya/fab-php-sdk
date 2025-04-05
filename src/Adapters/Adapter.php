@@ -7,17 +7,8 @@ interface Adapter
     /**
      * Return a filtered list of cards.
      *
-     * @param array<string, mixed> $filters
-     * @return mixed
+     * @param SearchCriteria $searchCriteria
+     * @return array<string, mixed>
      */
-    public function getCards(array $filters = []): mixed;
-
-    /**
-     * Return information on a card.
-     *
-     * @param string $identifier
-     * @param string $key
-     * @return mixed
-     */
-    public function getCard(string $identifier, string $key): mixed;
+    public function getCards(SearchCriteria $searchCriteria): array;
 }

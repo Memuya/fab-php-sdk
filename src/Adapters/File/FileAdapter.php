@@ -2,13 +2,10 @@
 
 namespace Memuya\Fab\Adapters\File;
 
-use ReflectionClass;
 use RuntimeException;
-use SplObjectStorage;
 use Memuya\Fab\Adapters\Adapter;
 use Memuya\Fab\Adapters\SearchCriteria;
 use Memuya\Fab\Adapters\File\Filters\Filterable;
-use Memuya\Fab\Exceptions\SearchCriteriaNotRegisteredException;
 
 class FileAdapter implements Adapter
 {
@@ -27,25 +24,12 @@ class FileAdapter implements Adapter
     private array $filters = [];
 
     /**
-     * The registered criteria classes for each criteria type.
-     * Example:
-     * [
-     *     SearchCriteriaType::MultiCard => CardsConfig::class,
-     *     SearchCriteriaType::SingleCard => CardConfig::class,
-     * ]
-     *
-     * @var SplObjectStorage<SearchCriteriaType, class-string>
-     */
-    private SplObjectStorage $registeredSearchCriteria;
-
-    /**
      * @param string $filepath
      * @param array<Filterable> $filters
      */
     public function __construct(string $filepath, array $filters = [])
     {
         $this->filepath = $filepath;
-        $this->registeredSearchCriteria = new SplObjectStorage();
 
         $this->registerFilters($filters);
     }
@@ -67,35 +51,11 @@ class FileAdapter implements Adapter
     }
 
     /**
-     * Register the config
-     *
-     * @param SearchCriteriaType $type
-     * @param class-string $config
-     * @return void
-     */
-    public function registerConfig(SearchCriteriaType $type, string $config): void
-    {
-        $this->registeredSearchCriteria[$type] = $config;
-    }
-
-    /**
      * @inheritDoc
      */
-    public function getCards(array $filters = []): array
+    public function getCards(SearchCriteria $criteria): array
     {
-        return $this->filterList(
-            $this->resolveSearchCriteria(SearchCriteriaType::MultiCard, $filters),
-        );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getCard(string $identifier, string $key = 'name'): array
-    {
-        return $this->filterList(
-            $this->resolveSearchCriteria(SearchCriteriaType::SingleCard, [$key => $identifier]),
-        )[0] ?? [];
+        return $this->filterList($criteria);
     }
 
     /**
@@ -133,35 +93,5 @@ class FileAdapter implements Adapter
         }
 
         return json_decode(file_get_contents($this->filepath), true);
-    }
-
-    /**
-     * Check to see if the given criteria type has been registered.
-     *
-     * @param SearchCriteriaType $type
-     * @return bool
-     */
-    private function isSearchCriteriaRegisteredFor(SearchCriteriaType $type): bool
-    {
-        return isset($this->registeredSearchCriteria[$type]);
-    }
-
-    /**
-     * Resolve the search criteria object needed for the given type.
-     *
-     * @param SearchCriteriaType $type
-     * @param array<string, mixed> $filters
-     * @return SearchCriteria
-     * @throws SearchCriteriaNotRegisteredException
-     */
-    private function resolveSearchCriteria(SearchCriteriaType $type, array $filters): SearchCriteria
-    {
-        if (! $this->isSearchCriteriaRegisteredFor($type)) {
-            throw new SearchCriteriaNotRegisteredException("Search criteria not registerd for {$type->name}.");
-        }
-
-        $reflection = new ReflectionClass($this->registeredSearchCriteria[$type]);
-
-        return $reflection->newInstance($filters);
     }
 }

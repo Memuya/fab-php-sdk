@@ -3,12 +3,10 @@
 namespace Memuya\Fab\Adapters\TheFabCube;
 
 use Memuya\Fab\Adapters\Adapter;
+use Memuya\Fab\Adapters\SearchCriteria;
 use Memuya\Fab\Adapters\File\FileAdapter;
 use Memuya\Fab\Adapters\File\Filters\Filterable;
-use Memuya\Fab\Adapters\File\SearchCriteriaType;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
-use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Card\CardSearchCriteria;
-use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
 
 /**
  * The FAB Cube is a Git repo that store an up-to-date list of all Flesh and Blood cards.
@@ -31,17 +29,15 @@ class TheFabCubeAdapter implements Adapter
             $filepath,
             $filters ?: $this->getDefaultFilters(),
         );
-        $this->fileAdapter->registerConfig(SearchCriteriaType::MultiCard, CardsSearchCriteria::class);
-        $this->fileAdapter->registerConfig(SearchCriteriaType::SingleCard, CardSearchCriteria::class);
     }
 
     /**
      * @inheritDoc
      * @return array<Card>
      */
-    public function getCards(array $filters = []): array
+    public function getCards(SearchCriteria $searchCriteria): array
     {
-        $cards = $this->fileAdapter->getCards($filters);
+        $cards = $this->fileAdapter->getCards($searchCriteria);
 
         return array_map(
             fn(array $card): Card => new Card($card),
@@ -50,22 +46,7 @@ class TheFabCubeAdapter implements Adapter
     }
 
     /**
-     * @inheritDoc
-     * @return Card|null
-     */
-    public function getCard(string $identifier, string $key = 'name'): ?Card
-    {
-        $card = $this->fileAdapter->getCard($identifier, $key);
-
-        if (empty($card)) {
-            return null;
-        }
-
-        return new Card($card);
-    }
-
-    /**
-     * Register filters can are usable when querying from the file.
+     * Register filters that are usable when querying from the file.
      *
      * @param array<Filterable> $filters
      * @return void
