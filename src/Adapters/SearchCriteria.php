@@ -2,13 +2,13 @@
 
 namespace Memuya\Fab\Adapters;
 
-use UnitEnum;
+use Exception;
 use ReflectionClass;
 use ReflectionProperty;
 use Memuya\Fab\Utilities\Str;
 use Memuya\Fab\Attributes\Parameter;
 use Memuya\Fab\Attributes\QueryString;
-use Memuya\Fab\Exceptions\PropertyNotSetException;
+use Memuya\Fab\Utilities\Extract\Value;
 
 abstract class SearchCriteria
 {
@@ -88,13 +88,8 @@ abstract class SearchCriteria
             }
 
             try {
-                // If we have an enum we want to extract the value from it.
-                $value = $this->{$property_name} instanceof UnitEnum
-                    ? $this->{$property_name}->value
-                    : $this->{$property_name};
-
-                $data[$property_name] = $value;
-            } catch (PropertyNotSetException) {
+                $data[$property_name] = Value::from($this->{$property_name})->extract();
+            } catch (Exception) {
                 continue;
             }
         }
