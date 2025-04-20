@@ -53,21 +53,21 @@ class FileAdapter implements Adapter
     /**
      * @inheritDoc
      */
-    public function getCards(SearchCriteria $criteria): array
+    public function getCards(SearchCriteria $searchCriteria): array
     {
-        return $this->filterList($criteria);
+        return $this->filterList($searchCriteria);
     }
 
     /**
      * Read and filter cards from the registered JSON file.
      *
-     * @param SearchCriteria $config
+     * @param SearchCriteria $searchCriteria
      * @return array<string, mixed>
      */
-    public function filterList(SearchCriteria $config): array
+    public function filterList(SearchCriteria $searchCriteria): array
     {
         $cards = $this->readFileToJson();
-        $criteria = $config->getParameterValues();
+        $criteria = $searchCriteria->getParameterValues();
 
         /** @var Filterable $filter */
         foreach ($this->filters as $filter) {

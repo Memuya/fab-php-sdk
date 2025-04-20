@@ -13,7 +13,7 @@ class TheFabCubeExtractor implements ImageUrlExtractor
         /** @return array<string> */
         return function (Card $card): array {
             return array_map(
-                fn(Printing $printing) => $printing->imageUrl,
+                fn(Printing $printing): ?string => $printing->imageUrl,
                 $card->printings,
             );
         };
