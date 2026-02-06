@@ -21,5 +21,10 @@
           "Memuya\\Fab\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "scripts": {
+        "fix-dry": "php-cs-fixer fix --dry-run --diff",
+        "fix": "php-cs-fixer fix",
+        "test": "phpunit tests/"
+    }
 }
