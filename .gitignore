@@ -3,3 +3,4 @@ vendor/
 docker-compose.yml
 Dockerfile
 .php-cs-fixer.cache
+.idea/
