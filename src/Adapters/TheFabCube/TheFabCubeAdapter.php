@@ -5,6 +5,7 @@ namespace Memuya\Fab\Adapters\TheFabCube;
 use Memuya\Fab\Adapters\Adapter;
 use Memuya\Fab\Adapters\SearchCriteria;
 use Memuya\Fab\Adapters\File\FileAdapter;
+use Memuya\Fab\Adapters\TheFabCube\Filters;
 use Memuya\Fab\Adapters\File\Filters\Filterable;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
 
@@ -57,11 +58,11 @@ class TheFabCubeAdapter implements Adapter
     }
 
     /**
-     * Return the underlaying fileAdapter object.
+     * Return the underlying FileAdapter object.
      *
-     * @return fileAdapter
+     * @return FileAdapter
      */
-    public function getFileAdapter(): fileAdapter
+    public function getFileAdapter(): FileAdapter
     {
         return $this->fileAdapter;
     }
@@ -74,44 +75,44 @@ class TheFabCubeAdapter implements Adapter
     private function getDefaultFilters(): array
     {
         return [
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\AbilitiesAndEffectsFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\AbilitiesAndEffectsKeywordsFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\ArcaneFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\BlitzBannedFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\BlitzLegalFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\BlitzLivingLegendFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\BlitzSuspendedFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\CardIdFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\CardKeywordsFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\CcBannedFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\CcLegalFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\CcLivingLegendFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\CcSuspendedFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\CommonerBannedFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\CommonerLegalFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\CommonerSuspendedFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\CostFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\DefenseFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\FunctionalTextFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\FunctionalTextPlainFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\GrantedKeywordsFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\HealthFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\IntelligenceFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\InteractsWithKeywordsFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\LlBannedFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\LlLegal(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\LlRestrictedFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\NameFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\PitchFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\PlayedHorizontallyFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\PowerFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\RarityFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\RemovedKeywordsFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\SetFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\TypeFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\TypeTextFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\UniqueIdFilter(),
-            new \Memuya\Fab\Adapters\TheFabCube\Filters\UpfBannedFilter(),
+            new Filters\AbilitiesAndEffectsFilter(),
+            new Filters\AbilitiesAndEffectsKeywordsFilter(),
+            new Filters\ArcaneFilter(),
+            new Filters\BlitzBannedFilter(),
+            new Filters\BlitzLegalFilter(),
+            new Filters\BlitzLivingLegendFilter(),
+            new Filters\BlitzSuspendedFilter(),
+            new Filters\CardIdFilter(),
+            new Filters\CardKeywordsFilter(),
+            new Filters\CcBannedFilter(),
+            new Filters\CcLegalFilter(),
+            new Filters\CcLivingLegendFilter(),
+            new Filters\CcSuspendedFilter(),
+            new Filters\CommonerBannedFilter(),
+            new Filters\CommonerLegalFilter(),
+            new Filters\CommonerSuspendedFilter(),
+            new Filters\CostFilter(),
+            new Filters\DefenseFilter(),
+            new Filters\FunctionalTextFilter(),
+            new Filters\FunctionalTextPlainFilter(),
+            new Filters\GrantedKeywordsFilter(),
+            new Filters\HealthFilter(),
+            new Filters\IntelligenceFilter(),
+            new Filters\InteractsWithKeywordsFilter(),
+            new Filters\LlBannedFilter(),
+            new Filters\LlLegal(),
+            new Filters\LlRestrictedFilter(),
+            new Filters\NameFilter(),
+            new Filters\PitchFilter(),
+            new Filters\PlayedHorizontallyFilter(),
+            new Filters\PowerFilter(),
+            new Filters\RarityFilter(),
+            new Filters\RemovedKeywordsFilter(),
+            new Filters\SetFilter(),
+            new Filters\TypeFilter(),
+            new Filters\TypeTextFilter(),
+            new Filters\UniqueIdFilter(),
+            new Filters\UpfBannedFilter(),
         ];
     }
 }

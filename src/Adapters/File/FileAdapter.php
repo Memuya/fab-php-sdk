@@ -44,7 +44,7 @@ class FileAdapter implements Adapter
     {
         $filters = array_filter(
             $filters,
-            fn($filter): bool => $filter instanceof Filterable,
+            fn(mixed $filter): bool => $filter instanceof Filterable,
         );
 
         $this->filters = array_merge($this->filters, $filters);
@@ -69,7 +69,6 @@ class FileAdapter implements Adapter
         $cards = $this->readFileToJson();
         $criteria = $searchCriteria->getParameterValues();
 
-        /** @var Filterable $filter */
         foreach ($this->filters as $filter) {
             if ($filter->canResolve($criteria)) {
                 $cards = $filter->applyTo($cards, $criteria);

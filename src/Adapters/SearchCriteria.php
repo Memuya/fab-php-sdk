@@ -23,7 +23,7 @@ abstract class SearchCriteria
     }
 
     /**
-     * Set up the criteria class proerties from the given array.
+     * Set up the criteria class properties from the given array.
      *
      * @param array<string, mixed> $criteria
      * @return void
@@ -77,18 +77,18 @@ abstract class SearchCriteria
         $data = [];
 
         foreach ($reflection->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
-            $property_name = $property->getName();
+            $propertyName = $property->getName();
 
             if (count($property->getAttributes($attribute)) === 0) {
                 continue;
             }
 
-            if (! isset($this->{$property_name})) {
+            if (! isset($this->{$propertyName})) {
                 continue;
             }
 
             try {
-                $data[$property_name] = Value::from($this->{$property_name})->extract();
+                $data[$propertyName] = Value::from($this->{$propertyName})->extract();
             } catch (Exception) {
                 continue;
             }

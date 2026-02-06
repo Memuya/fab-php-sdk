@@ -2,6 +2,7 @@
 
 namespace Memuya\Fab\Utilities\Extract;
 
+use ReflectionException;
 use UnitEnum;
 use Exception;
 use BackedEnum;
@@ -18,9 +19,9 @@ class Value
      * The supported instance types that a value can be extracted from
      * and their corresponding 'extractor' class.
      *
-     * @return array
+     * @return array<class-string, class-string>
      */
-    private static $supportedTypes = [
+    private static array $supportedTypes = [
         BackedEnum::class => BackedEnumExtractor::class,
         UnitEnum::class => UnitEnumExtractor::class,
         Stringable::class => StringableExtractor::class,
@@ -50,9 +51,10 @@ class Value
     }
 
     /**
-     * Extract the value depeneding on its instance type.
+     * Extract the value depending on its instance type.
      *
      * @return mixed
+     * @throws ReflectionException
      */
     public function extract(): mixed
     {

@@ -5,14 +5,15 @@ namespace Memuya\Fab\Downloader;
 use Memuya\Fab\Adapters\Adapter;
 use Memuya\Fab\Adapters\SearchCriteria;
 use League\Flysystem\FilesystemOperator;
+use League\Flysystem\FilesystemException;
 use Memuya\Fab\Downloader\Extractors\ImageUrlExtractor;
 
 class ImageDownloader
 {
     public function __construct(
-        private Adapter $adapter,
-        private ImageUrlExtractor $extractor,
-        private FilesystemOperator $filesystem,
+        private readonly Adapter $adapter,
+        private readonly ImageUrlExtractor $extractor,
+        private readonly FilesystemOperator $filesystem,
     ) {}
 
     /**
@@ -20,6 +21,7 @@ class ImageDownloader
      *
      * @param SearchCriteria $searchCriteria
      * @return void
+     * @throws FilesystemException
      */
     public function filterBy(SearchCriteria $searchCriteria): void
     {
@@ -56,6 +58,7 @@ class ImageDownloader
      *
      * @param array<string> $urls
      * @return void
+     * @throws FilesystemException
      */
     public function downloadFromUrls(array $urls): void
     {

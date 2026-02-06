@@ -58,6 +58,9 @@ class Card extends Entity
 
     public function setPrintings(array $printings)
     {
-        $this->printings = array_map(fn($printing) => new Printing($printing), $printings);
+        $this->printings = array_map(
+            fn(array $printing): Printing => new Printing($printing),
+            $printings,
+        );
     }
 }
