@@ -1,30 +1,35 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
-use Memuya\Fab\Adapters\File\FileAdapter;
+namespace Integration\Reader\Json;
 
-final class FileAdapterTest extends TestCase
+use Memuya\Fab\Adapters\SearchCriteria;
+use Memuya\Fab\Attributes\Parameter;
+use Memuya\Fab\Readers\Json\FileJsonReader;
+use Memuya\Fab\Readers\Json\Filters\Filterable;
+use PHPUnit\Framework\TestCase;
+
+final class FileJsonReaderTest extends TestCase
 {
-    private string $testCardsJsonFilePath;
-    private FileAdapter $adapter;
+    private FileJsonReader $adapter;
 
     public function setUp(): void
     {
-        $this->testCardsJsonFilePath = sprintf('%s/test_cards.json', dirname(__DIR__, 3));
-
-        $this->adapter = new FileAdapter($this->testCardsJsonFilePath, [new FileAdapterTestIdentifierFilter()]);
+        $this->adapter = new FileJsonReader(
+            filepath: sprintf('%s/test_cards.json', __DIR__),
+            filters: [new FileAdapterTestIdentifierFilter()],
+        );
     }
 
     public function testCanReadFromJsonFile(): void
     {
-        $cards = $this->adapter->getCards(new FileAdapterTestCardsSearchCriteria());
+        $cards = $this->adapter->filterList(new FileAdapterTestCardsSearchCriteria());
 
         $this->assertNotEmpty($cards);
     }
 
     public function testCanFilterResults(): void
     {
-        $cards = $this->adapter->getCards(
+        $cards = $this->adapter->filterList(
             new FileAdapterTestCardsSearchCriteria([
                 'identifier' => 'first',
             ]),
@@ -37,7 +42,7 @@ final class FileAdapterTest extends TestCase
 
     public function testResultIsEmptyWhenFiltersDoNotMatchACard(): void
     {
-        $cards = $this->adapter->getCards(
+        $cards = $this->adapter->filterList(
             new FileAdapterTestCardsSearchCriteria([
                 'identifier' => 'does_not_exist',
             ]),
@@ -71,35 +76,35 @@ final class FileAdapterTest extends TestCase
     }
 }
 
-class FileAdapterTestCardsSearchCriteria extends \Memuya\Fab\Adapters\SearchCriteria
+class FileAdapterTestCardsSearchCriteria extends SearchCriteria
 {
-    #[\Memuya\Fab\Attributes\Parameter]
+    #[Parameter]
     public string $identifier;
 }
 
-class FileAdapterTestCardSearchCriteria extends \Memuya\Fab\Adapters\SearchCriteria
+class FileAdapterTestCardSearchCriteria extends SearchCriteria
 {
-    #[\Memuya\Fab\Attributes\Parameter]
+    #[Parameter]
     public string $identifier;
 }
 
-class TestSearchCriteria extends \Memuya\Fab\Adapters\SearchCriteria
+class TestSearchCriteria extends SearchCriteria
 {
-    #[\Memuya\Fab\Attributes\Parameter]
+    #[Parameter]
     public string $identifier;
 
-    #[\Memuya\Fab\Attributes\Parameter]
+    #[Parameter]
     public string $cost;
 }
 
-class FileAdapterTestIdentifierFilter implements \Memuya\Fab\Adapters\File\Filters\Filterable
+class FileAdapterTestIdentifierFilter implements Filterable
 {
     /**
      * @inheritDoc
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['identifier']) && ! is_null($filters['identifier']);
+        return isset($filters['identifier']) && !is_null($filters['identifier']);
     }
 
     /**
@@ -113,14 +118,14 @@ class FileAdapterTestIdentifierFilter implements \Memuya\Fab\Adapters\File\Filte
     }
 }
 
-class FileAdapterTestCostFilter implements \Memuya\Fab\Adapters\File\Filters\Filterable
+class FileAdapterTestCostFilter implements Filterable
 {
     /**
      * @inheritDoc
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['cost']) && ! is_null($filters['cost']);
+        return isset($filters['cost']);
     }
 
     /**

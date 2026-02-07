@@ -2,8 +2,8 @@
 
 namespace Memuya\Fab\Adapters\TheFabCube\Filters;
 
-use Memuya\Fab\Adapters\File\Filters\Filterable;
 use Memuya\Fab\Adapters\TheFabCube\Filters\Support\FiltersData;
+use Memuya\Fab\Readers\Json\Filters\Filterable;
 
 class TypeFilter implements Filterable
 {

@@ -1,11 +1,13 @@
 <?php
 
-use Memuya\Fab\Enums\Set;
+namespace Integration\Adapters\TheFabCube\SearchCriteria\Cards;
+
+use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
 use Memuya\Fab\Enums\Pitch;
 use Memuya\Fab\Enums\Rarity;
-use PHPUnit\Framework\TestCase;
+use Memuya\Fab\Enums\Set;
 use Memuya\Fab\Utilities\CompareWithOperator;
-use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
+use PHPUnit\Framework\TestCase;
 
 final class CardsSearchCriteriaTest extends TestCase
 {
@@ -20,7 +22,6 @@ final class CardsSearchCriteriaTest extends TestCase
     {
         $config = new CardsSearchCriteria(['pitch' => new CompareWithOperator(Pitch::One)]);
 
-        $this->assertInstanceOf(CompareWithOperator::class, $config->pitch);
         $this->assertSame(Pitch::One, $config->pitch->value);
     }
 

@@ -1,13 +1,12 @@
 <?php
 
-namespace Memuya\Fab\Adapters\File;
+namespace Memuya\Fab\Readers\Json;
 
-use RuntimeException;
-use Memuya\Fab\Adapters\Adapter;
 use Memuya\Fab\Adapters\SearchCriteria;
-use Memuya\Fab\Adapters\File\Filters\Filterable;
+use Memuya\Fab\Readers\Json\Filters\Filterable;
+use RuntimeException;
 
-class FileAdapter implements Adapter
+class FileJsonReader
 {
     /**
      * The location of the JSON file.
@@ -51,14 +50,6 @@ class FileAdapter implements Adapter
     }
 
     /**
-     * @inheritDoc
-     */
-    public function getCards(SearchCriteria $searchCriteria): array
-    {
-        return $this->filterList($searchCriteria);
-    }
-
-    /**
      * Read and filter cards from the registered JSON file.
      *
      * @param SearchCriteria $searchCriteria
@@ -88,7 +79,7 @@ class FileAdapter implements Adapter
     private function readFileToJson(): array
     {
         if (! file_exists($this->filepath)) {
-            throw new RuntimeException('File not found.');
+            throw new RuntimeException("File '{$this->filepath}' not found.");
         }
 
         return json_decode(file_get_contents($this->filepath), true);

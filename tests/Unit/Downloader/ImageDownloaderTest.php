@@ -1,5 +1,7 @@
 <?php
 
+namespace Unit\Downloader;
+
 use PHPUnit\Framework\TestCase;
 use League\Flysystem\Filesystem;
 use Memuya\Fab\Adapters\Adapter;
@@ -56,13 +58,13 @@ class ImageDownloaderTest extends TestCase
 
     public function testDownloadFromUrls(): void
     {
-        /** @var MockObject&Adapter */
+        /** @var MockObject&Adapter $adapter */
         $adapter = $this->createMock(Adapter::class);
-        /** @var MockObject&ImageUrlExtractor */
+        /** @var MockObject&ImageUrlExtractor $extractor */
         $extractor = $this->createMock(ImageUrlExtractor::class);
         $filesystem = new Filesystem(new InMemoryFilesystemAdapter());
 
-        /** @var MockObject&ImageDownloader */
+        /** @var MockObject&ImageDownloader $downloader */
         $downloader = $this->getMockBuilder(ImageDownloader::class)
             ->onlyMethods(['getImageContentFromUrl'])
             ->setConstructorArgs([$adapter, $extractor, $filesystem])

@@ -1,6 +1,6 @@
 <?php
 
-namespace Memuya\Fab\Adapters\File\Filters;
+namespace Memuya\Fab\Readers\Json\Filters;
 
 interface Filterable
 {
