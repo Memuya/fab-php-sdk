@@ -17,9 +17,8 @@ use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
  */
 readonly class TheFabCubeAdapter implements Adapter
 {
-    public function __construct(
-        private FileJsonReader $fileAdapter,
-    ) {
+    public function __construct(private FileJsonReader $fileAdapter)
+    {
         $this->fileAdapter->registerFilters($this->getDefaultFilters());
     }
 
