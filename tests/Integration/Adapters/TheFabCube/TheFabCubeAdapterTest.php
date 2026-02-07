@@ -2,13 +2,13 @@
 
 namespace Integration\Adapters\TheFabCube;
 
-use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
-use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
-use Memuya\Fab\Adapters\TheFabCube\TheFabCubeAdapter;
 use Memuya\Fab\Enums\Pitch;
+use PHPUnit\Framework\TestCase;
 use Memuya\Fab\Readers\Json\FileJsonReader;
 use Memuya\Fab\Utilities\CompareWithOperator;
-use PHPUnit\Framework\TestCase;
+use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
+use Memuya\Fab\Adapters\TheFabCube\TheFabCubeAdapter;
+use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
 
 final class TheFabCubeAdapterTest extends TestCase
 {

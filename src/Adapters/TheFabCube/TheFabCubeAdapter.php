@@ -4,9 +4,9 @@ namespace Memuya\Fab\Adapters\TheFabCube;
 
 use Memuya\Fab\Adapters\Adapter;
 use Memuya\Fab\Adapters\SearchCriteria;
-use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
 use Memuya\Fab\Readers\Json\FileJsonReader;
 use Memuya\Fab\Readers\Json\Filters\Filterable;
+use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
 
 /**
  * The FAB Cube is a Git repo that store an up-to-date list of all Flesh and Blood cards.

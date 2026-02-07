@@ -2,9 +2,9 @@
 
 namespace Memuya\Fab\Readers\Json;
 
+use RuntimeException;
 use Memuya\Fab\Adapters\SearchCriteria;
 use Memuya\Fab\Readers\Json\Filters\Filterable;
-use RuntimeException;
 
 class FileJsonReader
 {

@@ -2,12 +2,12 @@
 
 namespace Integration\Adapters\TheFabCube\SearchCriteria\Cards;
 
-use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
+use Memuya\Fab\Enums\Set;
 use Memuya\Fab\Enums\Pitch;
 use Memuya\Fab\Enums\Rarity;
-use Memuya\Fab\Enums\Set;
-use Memuya\Fab\Utilities\CompareWithOperator;
 use PHPUnit\Framework\TestCase;
+use Memuya\Fab\Utilities\CompareWithOperator;
+use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
 
 final class CardsSearchCriteriaTest extends TestCase
 {

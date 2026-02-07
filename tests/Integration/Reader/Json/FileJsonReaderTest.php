@@ -2,11 +2,11 @@
 
 namespace Integration\Reader\Json;
 
-use Memuya\Fab\Adapters\SearchCriteria;
+use PHPUnit\Framework\TestCase;
 use Memuya\Fab\Attributes\Parameter;
+use Memuya\Fab\Adapters\SearchCriteria;
 use Memuya\Fab\Readers\Json\FileJsonReader;
 use Memuya\Fab\Readers\Json\Filters\Filterable;
-use PHPUnit\Framework\TestCase;
 
 final class FileJsonReaderTest extends TestCase
 {

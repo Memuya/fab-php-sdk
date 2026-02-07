@@ -7,9 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 final class StrTest extends TestCase
 {
-    public function setUp(): void
-    {
-    }
+    public function setUp(): void {}
 
     public function testToPascalCase()
     {
