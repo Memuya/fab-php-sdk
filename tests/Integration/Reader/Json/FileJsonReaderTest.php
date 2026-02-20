@@ -10,26 +10,26 @@ use Memuya\Fab\Readers\Json\Filters\Filterable;
 
 final class FileJsonReaderTest extends TestCase
 {
-    private FileJsonReader $adapter;
+    private FileJsonReader $reader;
 
     public function setUp(): void
     {
-        $this->adapter = new FileJsonReader(
+        $this->reader = new FileJsonReader(
             filepath: sprintf('%s/test_cards.json', __DIR__),
-            filters: [new FileAdapterTestIdentifierFilter()],
+            filters: [FileAdapterTestIdentifierFilter::class],
         );
     }
 
     public function testCanReadFromJsonFile(): void
     {
-        $cards = $this->adapter->filterList(new FileAdapterTestCardsSearchCriteria());
+        $cards = $this->reader->searchData(new FileAdapterTestCardsSearchCriteria());
 
         $this->assertNotEmpty($cards);
     }
 
     public function testCanFilterResults(): void
     {
-        $cards = $this->adapter->filterList(
+        $cards = $this->reader->searchData(
             new FileAdapterTestCardsSearchCriteria([
                 'identifier' => 'first',
             ]),
@@ -42,7 +42,7 @@ final class FileJsonReaderTest extends TestCase
 
     public function testResultIsEmptyWhenFiltersDoNotMatchACard(): void
     {
-        $cards = $this->adapter->filterList(
+        $cards = $this->reader->searchData(
             new FileAdapterTestCardsSearchCriteria([
                 'identifier' => 'does_not_exist',
             ]),
@@ -51,11 +51,11 @@ final class FileJsonReaderTest extends TestCase
         $this->assertEmpty($cards);
     }
 
-    public function testCanFilterFileWithCustomFilterAndConfigViaConstructor(): void
+    public function testCanSearchFileWithCustomFilterAndConfigViaConstructor(): void
     {
-        $this->adapter->registerFilters([new FileAdapterTestCostFilter()]);
+        $this->reader->registerFilters([FileAdapterTestCostFilter::class]);
 
-        $cards = $this->adapter->filterList(
+        $cards = $this->reader->searchData(
             new TestSearchCriteria(['cost' => '1']),
         );
 
@@ -63,11 +63,11 @@ final class FileJsonReaderTest extends TestCase
         $this->assertCount(1, $cards);
     }
 
-    public function testCanRegisterConfigDirectlyToFilterListWithCustomFilter(): void
+    public function testCanRegisterConfigDirectlyToSearchDataWithCustomFilter(): void
     {
-        $this->adapter->registerFilters([new FileAdapterTestCostFilter()]);
+        $this->reader->registerFilters([FileAdapterTestCostFilter::class]);
 
-        $cards = $this->adapter->filterList(
+        $cards = $this->reader->searchData(
             new TestSearchCriteria(['cost' => '2']),
         );
 
@@ -104,7 +104,7 @@ class FileAdapterTestIdentifierFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['identifier']) && !is_null($filters['identifier']);
+        return isset($filters['identifier']);
     }
 
     /**
