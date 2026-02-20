@@ -10,7 +10,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Printing;
 use Memuya\Fab\Downloader\Extractors\ImageUrlExtractor;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
-use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
+use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\TheFabCubeSearchCriteria;
 
 class ImageDownloaderTest extends TestCase
 {
@@ -47,10 +47,10 @@ class ImageDownloaderTest extends TestCase
         $this->adapterMock
             ->expects($this->once())
             ->method('getCards')
-            ->with(new CardsSearchCriteria())
+            ->with(new TheFabCubeSearchCriteria())
             ->willReturn([$card]);
 
-        $urls = $this->imageDownloader->getImageUrls(new CardsSearchCriteria());
+        $urls = $this->imageDownloader->getImageUrls(new TheFabCubeSearchCriteria());
 
         $this->assertCount(1, $urls);
         $this->assertSame('https://example.com/image1.jpg', $urls[0]);

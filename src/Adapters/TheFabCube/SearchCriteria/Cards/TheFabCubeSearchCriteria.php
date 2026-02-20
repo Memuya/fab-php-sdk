@@ -5,18 +5,19 @@ namespace Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards;
 use Memuya\Fab\Enums\Set;
 use Memuya\Fab\Enums\Pitch;
 use Memuya\Fab\Enums\Rarity;
-use Memuya\Fab\Attributes\Parameter;
+use Memuya\Fab\Attributes\Filter;
 use Memuya\Fab\Adapters\SearchCriteria;
+use Memuya\Fab\Adapters\TheFabCube\Filters;
 use Memuya\Fab\Utilities\CompareWithOperator;
 
-class CardsSearchCriteria extends SearchCriteria
+class TheFabCubeSearchCriteria extends SearchCriteria
 {
     /**
      * The name to filter by.
      *
      * @var string
      */
-    #[Parameter]
+    #[Filter(Filters\NameFilter::class)]
     public string $name;
 
     /**
@@ -24,7 +25,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
     * @var CompareWithOperator<Pitch>
      */
-    #[Parameter]
+    #[Filter(Filters\PitchFilter::class)]
     public CompareWithOperator $pitch;
 
     /**
@@ -32,7 +33,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var string
      */
-    #[Parameter]
+    #[Filter(Filters\CostFilter::class)]
     public string $cost;
 
     /**
@@ -40,7 +41,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var string
      */
-    #[Parameter]
+    #[Filter(Filters\CardIdFilter::class)]
     public string $card_id;
 
     /**
@@ -48,7 +49,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var string
      */
-    #[Parameter]
+    #[Filter(Filters\PowerFilter::class)]
     public string $power;
 
     /**
@@ -56,7 +57,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var string
      */
-    #[Parameter]
+    #[Filter(Filters\UniqueIdFilter::class)]
     public string $unique_id;
 
     /**
@@ -64,7 +65,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var string
      */
-    #[Parameter]
+    #[Filter(Filters\DefenseFilter::class)]
     public string $defense;
 
     /**
@@ -72,7 +73,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var string
      */
-    #[Parameter]
+    #[Filter(Filters\HealthFilter::class)]
     public string $health;
 
     /**
@@ -80,7 +81,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var string
      */
-    #[Parameter]
+    #[Filter(Filters\IntelligenceFilter::class)]
     public string $intelligence;
 
     /**
@@ -88,7 +89,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var string
      */
-    #[Parameter]
+    #[Filter(Filters\ArcaneFilter::class)]
     public string $arcane;
 
     /**
@@ -96,7 +97,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var array<string>
      */
-    #[Parameter]
+    #[Filter(Filters\TypeFilter::class)]
     public array $types;
 
     /**
@@ -104,7 +105,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var array<string>
      */
-    #[Parameter]
+    #[Filter(Filters\CardKeywordsFilter::class)]
     public array $card_keywords;
 
     /**
@@ -112,7 +113,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var array<string>
      */
-    #[Parameter]
+    #[Filter(Filters\AbilitiesAndEffectsFilter::class)]
     public array $abilities_and_effects;
 
     /**
@@ -120,7 +121,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var array<string>
      */
-    #[Parameter]
+    #[Filter(Filters\AbilitiesAndEffectsKeywordsFilter::class)]
     public array $ability_and_effect_keywords;
 
     /**
@@ -128,7 +129,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var array<string>
      */
-    #[Parameter]
+    #[Filter(Filters\GrantedKeywordsFilter::class)]
     public array $granted_keywords;
 
     /**
@@ -136,7 +137,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var array<string>
      */
-    #[Parameter]
+    #[Filter(Filters\RemovedKeywordsFilter::class)]
     public array $removed_keywords;
 
     /**
@@ -144,7 +145,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var array<string>
      */
-    #[Parameter]
+    #[Filter(Filters\InteractsWithKeywordsFilter::class)]
     public array $interacts_with_keywords;
 
     /**
@@ -152,7 +153,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var string
      */
-    #[Parameter]
+    #[Filter(Filters\FunctionalTextFilter::class)]
     public string $functional_text;
 
     /**
@@ -160,7 +161,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var string
      */
-    #[Parameter]
+    #[Filter(Filters\FunctionalTextPlainFilter::class)]
     public string $functional_text_plain;
 
     /**
@@ -168,7 +169,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var string
      */
-    #[Parameter]
+    #[Filter(Filters\TypeTextFilter::class)]
     public string $type_text;
 
     /**
@@ -176,7 +177,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\PlayedHorizontallyFilter::class)]
     public bool $played_horizontally;
 
     /**
@@ -184,7 +185,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\BlitzLegalFilter::class)]
     public bool $blitz_legal;
 
     /**
@@ -192,7 +193,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\CcLegalFilter::class)]
     public bool $cc_legal;
 
     /**
@@ -200,7 +201,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\CommonerLegalFilter::class)]
     public bool $commoner_legal;
 
     /**
@@ -208,7 +209,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\LlLegal::class)]
     public bool $ll_legal;
 
     /**
@@ -216,7 +217,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\BlitzLivingLegendFilter::class)]
     public bool $blitz_living_legend;
 
     /**
@@ -224,7 +225,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\CcLivingLegendFilter::class)]
     public bool $cc_living_legend;
 
     /**
@@ -232,7 +233,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\BlitzBannedFilter::class)]
     public bool $blitz_banned;
 
     /**
@@ -240,7 +241,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\CcBannedFilter::class)]
     public bool $cc_banned;
 
     /**
@@ -248,7 +249,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\CommonerBannedFilter::class)]
     public bool $commoner_banned;
 
     /**
@@ -256,7 +257,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\LlBannedFilter::class)]
     public bool $ll_banned;
 
     /**
@@ -264,7 +265,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\UpfBannedFilter::class)]
     public bool $upf_banned;
 
     /**
@@ -272,7 +273,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\BlitzSuspendedFilter::class)]
     public bool $blitz_suspended;
 
     /**
@@ -280,7 +281,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\CcSuspendedFilter::class)]
     public bool $cc_suspended;
 
     /**
@@ -288,7 +289,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\CommonerSuspendedFilter::class)]
     public bool $commoner_suspended;
 
     /**
@@ -296,7 +297,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var bool
      */
-    #[Parameter]
+    #[Filter(Filters\LlRestrictedFilter::class)]
     public bool $ll_restricted;
 
     /**
@@ -304,7 +305,7 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var Set
      */
-    #[Parameter]
+    #[Filter(Filters\SetFilter::class)]
     public Set $set;
 
     /**
@@ -312,6 +313,6 @@ class CardsSearchCriteria extends SearchCriteria
      *
      * @var Rarity
      */
-    #[Parameter]
+    #[Filter(Filters\RarityFilter::class)]
     public Rarity $rarity;
 }

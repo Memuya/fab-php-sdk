@@ -5,7 +5,6 @@ namespace Memuya\Fab\Adapters\TheFabCube;
 use Memuya\Fab\Adapters\Adapter;
 use Memuya\Fab\Adapters\SearchCriteria;
 use Memuya\Fab\Readers\Json\FileJsonReader;
-use Memuya\Fab\Readers\Json\Filters\Filterable;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
 
 /**
@@ -17,10 +16,7 @@ use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
  */
 readonly class TheFabCubeAdapter implements Adapter
 {
-    public function __construct(private FileJsonReader $fileReader)
-    {
-        $this->fileReader->registerFilters($this->getDefaultFilters());
-    }
+    public function __construct(private FileJsonReader $fileReader) {}
 
     /**
      * @inheritDoc
@@ -41,57 +37,8 @@ readonly class TheFabCubeAdapter implements Adapter
      *
      * @return FileJsonReader
      */
-    public function getFileAdapter(): FileJsonReader
+    public function getFileReader(): FileJsonReader
     {
         return $this->fileReader;
-    }
-
-    /**
-     * A list of default filters to be registered with FileJsonReader.
-     *
-     * @return array<class-string<Filterable>>
-     */
-    private function getDefaultFilters(): array
-    {
-        return [
-            Filters\AbilitiesAndEffectsFilter::class,
-            Filters\AbilitiesAndEffectsKeywordsFilter::class,
-            Filters\ArcaneFilter::class,
-            Filters\BlitzBannedFilter::class,
-            Filters\BlitzLegalFilter::class,
-            Filters\BlitzLivingLegendFilter::class,
-            Filters\BlitzSuspendedFilter::class,
-            Filters\CardIdFilter::class,
-            Filters\CardKeywordsFilter::class,
-            Filters\CcBannedFilter::class,
-            Filters\CcLegalFilter::class,
-            Filters\CcLivingLegendFilter::class,
-            Filters\CcSuspendedFilter::class,
-            Filters\CommonerBannedFilter::class,
-            Filters\CommonerLegalFilter::class,
-            Filters\CommonerSuspendedFilter::class,
-            Filters\CostFilter::class,
-            Filters\DefenseFilter::class,
-            Filters\FunctionalTextFilter::class,
-            Filters\FunctionalTextPlainFilter::class,
-            Filters\GrantedKeywordsFilter::class,
-            Filters\HealthFilter::class,
-            Filters\IntelligenceFilter::class,
-            Filters\InteractsWithKeywordsFilter::class,
-            Filters\LlBannedFilter::class,
-            Filters\LlLegal::class,
-            Filters\LlRestrictedFilter::class,
-            Filters\NameFilter::class,
-            Filters\PitchFilter::class,
-            Filters\PlayedHorizontallyFilter::class,
-            Filters\PowerFilter::class,
-            Filters\RarityFilter::class,
-            Filters\RemovedKeywordsFilter::class,
-            Filters\SetFilter::class,
-            Filters\TypeFilter::class,
-            Filters\TypeTextFilter::class,
-            Filters\UniqueIdFilter::class,
-            Filters\UpfBannedFilter::class,
-        ];
     }
 }

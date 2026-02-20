@@ -3,7 +3,7 @@
 namespace Integration\Reader\Json;
 
 use PHPUnit\Framework\TestCase;
-use Memuya\Fab\Attributes\Parameter;
+use Memuya\Fab\Attributes\Filter;
 use Memuya\Fab\Adapters\SearchCriteria;
 use Memuya\Fab\Readers\Json\FileJsonReader;
 use Memuya\Fab\Readers\Json\Filters\Filterable;
@@ -16,7 +16,6 @@ final class FileJsonReaderTest extends TestCase
     {
         $this->reader = new FileJsonReader(
             filepath: sprintf('%s/test_cards.json', __DIR__),
-            filters: [FileAdapterTestIdentifierFilter::class],
         );
     }
 
@@ -50,50 +49,26 @@ final class FileJsonReaderTest extends TestCase
 
         $this->assertEmpty($cards);
     }
-
-    public function testCanSearchFileWithCustomFilterAndConfigViaConstructor(): void
-    {
-        $this->reader->registerFilters([FileAdapterTestCostFilter::class]);
-
-        $cards = $this->reader->searchData(
-            new TestSearchCriteria(['cost' => '1']),
-        );
-
-        $this->assertIsArray($cards);
-        $this->assertCount(1, $cards);
-    }
-
-    public function testCanRegisterConfigDirectlyToSearchDataWithCustomFilter(): void
-    {
-        $this->reader->registerFilters([FileAdapterTestCostFilter::class]);
-
-        $cards = $this->reader->searchData(
-            new TestSearchCriteria(['cost' => '2']),
-        );
-
-        $this->assertIsArray($cards);
-        $this->assertCount(1, $cards);
-    }
 }
 
 class FileAdapterTestCardsSearchCriteria extends SearchCriteria
 {
-    #[Parameter]
+    #[Filter(FileAdapterTestIdentifierFilter::class)]
     public string $identifier;
 }
 
 class FileAdapterTestCardSearchCriteria extends SearchCriteria
 {
-    #[Parameter]
+    #[Filter(FileAdapterTestIdentifierFilter::class)]
     public string $identifier;
 }
 
 class TestSearchCriteria extends SearchCriteria
 {
-    #[Parameter]
+    #[Filter(FileAdapterTestIdentifierFilter::class)]
     public string $identifier;
 
-    #[Parameter]
+    #[Filter(FileAdapterTestCostFilter::class)]
     public string $cost;
 }
 

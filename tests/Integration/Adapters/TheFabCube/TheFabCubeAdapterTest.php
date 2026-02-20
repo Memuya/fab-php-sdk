@@ -8,7 +8,7 @@ use Memuya\Fab\Readers\Json\FileJsonReader;
 use Memuya\Fab\Utilities\CompareWithOperator;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
 use Memuya\Fab\Adapters\TheFabCube\TheFabCubeAdapter;
-use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
+use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\TheFabCubeSearchCriteria;
 
 final class TheFabCubeAdapterTest extends TestCase
 {
@@ -23,7 +23,7 @@ final class TheFabCubeAdapterTest extends TestCase
 
     public function testCanReadFromJsonFile(): void
     {
-        $cards = $this->adapter->getCards(new CardsSearchCriteria());
+        $cards = $this->adapter->getCards(new TheFabCubeSearchCriteria());
 
         $this->assertNotEmpty($cards);
     }
@@ -31,7 +31,7 @@ final class TheFabCubeAdapterTest extends TestCase
     public function testCanFilterResults(): void
     {
         $cards = $this->adapter->getCards(
-            new CardsSearchCriteria([
+            new TheFabCubeSearchCriteria([
                 'name' => '10,000 Year Reunion',
                 'pitch' => new CompareWithOperator(Pitch::One),
             ]),
@@ -46,7 +46,7 @@ final class TheFabCubeAdapterTest extends TestCase
     public function testResultIsEmptyWhenFiltersDoNotMatchACard(): void
     {
         $cards = $this->adapter->getCards(
-            new CardsSearchCriteria([
+            new TheFabCubeSearchCriteria([
                 'name' => '10,000 Year Reunion',
                 'pitch' => new CompareWithOperator(Pitch::Two),
             ]),
@@ -59,7 +59,7 @@ final class TheFabCubeAdapterTest extends TestCase
     {
         $this->assertInstanceOf(
             FileJsonReader::class,
-            $this->adapter->getFileAdapter(),
+            $this->adapter->getFileReader(),
         );
     }
 }
