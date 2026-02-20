@@ -1,5 +1,7 @@
 <?php
 
+namespace Unit\Utilities;
+
 use Memuya\Fab\Utilities\Str;
 use PHPUnit\Framework\TestCase;
 

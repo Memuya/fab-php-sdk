@@ -2,7 +2,7 @@
 
 namespace Memuya\Fab\Adapters\TheFabCube\Filters;
 
-use Memuya\Fab\Adapters\File\Filters\Filterable;
+use Memuya\Fab\Readers\Json\Filters\Filterable;
 
 class LlLegal implements Filterable
 {

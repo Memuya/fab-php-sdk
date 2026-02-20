@@ -1,5 +1,7 @@
 <?php
 
+namespace Unit\Utilities\Extract;
+
 use Memuya\Fab\Enums\HeroClass;
 use PHPUnit\Framework\TestCase;
 use Memuya\Fab\Utilities\Extract\Value;

@@ -1,14 +1,16 @@
 <?php
 
-namespace Memuya\Fab\Adapters;
+namespace Memuya\Fab\Readers;
 
 use Exception;
 use ReflectionClass;
 use ReflectionProperty;
+use ReflectionException;
 use Memuya\Fab\Utilities\Str;
-use Memuya\Fab\Attributes\Parameter;
+use Memuya\Fab\Attributes\Filter;
 use Memuya\Fab\Attributes\QueryString;
 use Memuya\Fab\Utilities\Extract\Value;
+use Memuya\Fab\Readers\Json\Filters\Filterable;
 
 abstract class SearchCriteria
 {
@@ -56,13 +58,13 @@ abstract class SearchCriteria
     }
 
     /**
-     * Return the options that are marked as a parameter.
+     * Return the value stored in each property that has a Filter attribute.
      *
      * @return array<string, mixed>
      */
-    public function getParameterValues(): array
+    public function getFilterableValues(): array
     {
-        return $this->getValuesFor(Parameter::class);
+        return $this->getValuesFor(Filter::class);
     }
 
     /**
@@ -119,6 +121,37 @@ abstract class SearchCriteria
         }
 
         $this->{$property} = $value;
+    }
+
+    /**
+     * Return the registered filter classes for each property.
+     *
+     * @return list<Filterable>
+     * @throws ReflectionException
+     */
+    public function getFilters(): array
+    {
+        $reflection = new ReflectionClass($this);
+        $filters = [];
+
+        foreach ($reflection->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
+            $attribute = $property->getAttributes(Filter::class)[0] ?? null;
+
+            if ($attribute === null) {
+                continue;
+            }
+
+            $instance = $attribute->newInstance();
+            $reflection = new ReflectionClass($instance->filterClass);
+
+            if (! $reflection->implementsInterface(Filterable::class)) {
+                continue;
+            }
+
+            $filters[] = $reflection->newInstance();
+        }
+
+        return $filters;
     }
 
     public function __toString()

@@ -2,12 +2,12 @@
 
 namespace Memuya\Fab\Utilities\Extract;
 
-use ReflectionException;
 use UnitEnum;
 use Exception;
 use BackedEnum;
 use Stringable;
 use ReflectionClass;
+use ReflectionException;
 use Memuya\Fab\Utilities\Extract\Extractor\Extractor;
 use Memuya\Fab\Utilities\Extract\Extractor\UnitEnumExtractor;
 use Memuya\Fab\Utilities\Extract\Extractor\BackedEnumExtractor;

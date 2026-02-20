@@ -1,5 +1,7 @@
 <?php
 
+namespace Unit\Downloader;
+
 use PHPUnit\Framework\TestCase;
 use League\Flysystem\Filesystem;
 use Memuya\Fab\Adapters\Adapter;
@@ -8,7 +10,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Printing;
 use Memuya\Fab\Downloader\Extractors\ImageUrlExtractor;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
-use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
+use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\TheFabCubeSearchCriteria;
 
 class ImageDownloaderTest extends TestCase
 {
@@ -45,10 +47,10 @@ class ImageDownloaderTest extends TestCase
         $this->adapterMock
             ->expects($this->once())
             ->method('getCards')
-            ->with(new CardsSearchCriteria())
+            ->with(new TheFabCubeSearchCriteria())
             ->willReturn([$card]);
 
-        $urls = $this->imageDownloader->getImageUrls(new CardsSearchCriteria());
+        $urls = $this->imageDownloader->getImageUrls(new TheFabCubeSearchCriteria());
 
         $this->assertCount(1, $urls);
         $this->assertSame('https://example.com/image1.jpg', $urls[0]);
@@ -56,13 +58,13 @@ class ImageDownloaderTest extends TestCase
 
     public function testDownloadFromUrls(): void
     {
-        /** @var MockObject&Adapter */
+        /** @var MockObject&Adapter $adapter */
         $adapter = $this->createMock(Adapter::class);
-        /** @var MockObject&ImageUrlExtractor */
+        /** @var MockObject&ImageUrlExtractor $extractor */
         $extractor = $this->createMock(ImageUrlExtractor::class);
         $filesystem = new Filesystem(new InMemoryFilesystemAdapter());
 
-        /** @var MockObject&ImageDownloader */
+        /** @var MockObject&ImageDownloader $downloader */
         $downloader = $this->getMockBuilder(ImageDownloader::class)
             ->onlyMethods(['getImageContentFromUrl'])
             ->setConstructorArgs([$adapter, $extractor, $filesystem])

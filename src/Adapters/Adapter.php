@@ -2,6 +2,8 @@
 
 namespace Memuya\Fab\Adapters;
 
+use Memuya\Fab\Readers\SearchCriteria;
+
 interface Adapter
 {
     /**

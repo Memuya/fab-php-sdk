@@ -2,11 +2,10 @@
 
 namespace Memuya\Fab\Adapters\TheFabCube;
 
+use ReflectionException;
 use Memuya\Fab\Adapters\Adapter;
-use Memuya\Fab\Adapters\SearchCriteria;
-use Memuya\Fab\Adapters\File\FileAdapter;
-use Memuya\Fab\Adapters\TheFabCube\Filters;
-use Memuya\Fab\Adapters\File\Filters\Filterable;
+use Memuya\Fab\Readers\SearchCriteria;
+use Memuya\Fab\Readers\Json\FileJsonReader;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
 
 /**
@@ -16,29 +15,18 @@ use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
  * @link https://github.com/the-fab-cube/flesh-and-blood-cards
  * @link https://raw.githubusercontent.com/the-fab-cube/flesh-and-blood-cards/refs/heads/develop/json/english/card.json
  */
-class TheFabCubeAdapter implements Adapter
+readonly class TheFabCubeAdapter implements Adapter
 {
-    private FileAdapter $fileAdapter;
-
-    /**
-     * @param string $filepath
-     * @param array<Filterable> $filters
-     */
-    public function __construct(string $filepath, array $filters = [])
-    {
-        $this->fileAdapter = new FileAdapter(
-            $filepath,
-            $filters ?: $this->getDefaultFilters(),
-        );
-    }
+    public function __construct(private FileJsonReader $fileReader) {}
 
     /**
      * @inheritDoc
      * @return array<Card>
+     * @throws ReflectionException
      */
     public function getCards(SearchCriteria $searchCriteria): array
     {
-        $cards = $this->fileAdapter->getCards($searchCriteria);
+        $cards = $this->fileReader->searchData($searchCriteria);
 
         return array_map(
             fn(array $card): Card => new Card($card),
@@ -47,72 +35,12 @@ class TheFabCubeAdapter implements Adapter
     }
 
     /**
-     * Register filters that are usable when querying from the file.
+     * Return the underlying FileJsonReader object.
      *
-     * @param array<Filterable> $filters
-     * @return void
+     * @return FileJsonReader
      */
-    public function registerFilters(array $filters): void
+    public function getFileReader(): FileJsonReader
     {
-        $this->getFileAdapter()->registerFilters($filters);
-    }
-
-    /**
-     * Return the underlying FileAdapter object.
-     *
-     * @return FileAdapter
-     */
-    public function getFileAdapter(): FileAdapter
-    {
-        return $this->fileAdapter;
-    }
-
-    /**
-     * Return a list of filters to be registered if none are provided.
-     *
-     * @return array<Filterable>
-     */
-    private function getDefaultFilters(): array
-    {
-        return [
-            new Filters\AbilitiesAndEffectsFilter(),
-            new Filters\AbilitiesAndEffectsKeywordsFilter(),
-            new Filters\ArcaneFilter(),
-            new Filters\BlitzBannedFilter(),
-            new Filters\BlitzLegalFilter(),
-            new Filters\BlitzLivingLegendFilter(),
-            new Filters\BlitzSuspendedFilter(),
-            new Filters\CardIdFilter(),
-            new Filters\CardKeywordsFilter(),
-            new Filters\CcBannedFilter(),
-            new Filters\CcLegalFilter(),
-            new Filters\CcLivingLegendFilter(),
-            new Filters\CcSuspendedFilter(),
-            new Filters\CommonerBannedFilter(),
-            new Filters\CommonerLegalFilter(),
-            new Filters\CommonerSuspendedFilter(),
-            new Filters\CostFilter(),
-            new Filters\DefenseFilter(),
-            new Filters\FunctionalTextFilter(),
-            new Filters\FunctionalTextPlainFilter(),
-            new Filters\GrantedKeywordsFilter(),
-            new Filters\HealthFilter(),
-            new Filters\IntelligenceFilter(),
-            new Filters\InteractsWithKeywordsFilter(),
-            new Filters\LlBannedFilter(),
-            new Filters\LlLegal(),
-            new Filters\LlRestrictedFilter(),
-            new Filters\NameFilter(),
-            new Filters\PitchFilter(),
-            new Filters\PlayedHorizontallyFilter(),
-            new Filters\PowerFilter(),
-            new Filters\RarityFilter(),
-            new Filters\RemovedKeywordsFilter(),
-            new Filters\SetFilter(),
-            new Filters\TypeFilter(),
-            new Filters\TypeTextFilter(),
-            new Filters\UniqueIdFilter(),
-            new Filters\UpfBannedFilter(),
-        ];
+        return $this->fileReader;
     }
 }

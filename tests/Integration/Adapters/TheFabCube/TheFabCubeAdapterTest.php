@@ -1,26 +1,29 @@
 <?php
 
+namespace Integration\Adapters\TheFabCube;
+
 use Memuya\Fab\Enums\Pitch;
 use PHPUnit\Framework\TestCase;
+use Memuya\Fab\Readers\Json\FileJsonReader;
 use Memuya\Fab\Utilities\CompareWithOperator;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
 use Memuya\Fab\Adapters\TheFabCube\TheFabCubeAdapter;
-use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\CardsSearchCriteria;
+use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\TheFabCubeSearchCriteria;
 
 final class TheFabCubeAdapterTest extends TestCase
 {
-    private string $cardsJsonFilePath;
     private TheFabCubeAdapter $adapter;
 
     public function setUp(): void
     {
-        $this->cardsJsonFilePath = sprintf('%s/the_fab_cube_cards.json', dirname(__DIR__, 3));
-        $this->adapter = new TheFabCubeAdapter($this->cardsJsonFilePath);
+        $cardsJsonFilePath = sprintf('%s/the_fab_cube_cards.json', dirname(__DIR__, 3));
+
+        $this->adapter = new TheFabCubeAdapter(new FileJsonReader($cardsJsonFilePath));
     }
 
     public function testCanReadFromJsonFile(): void
     {
-        $cards = $this->adapter->getCards(new CardsSearchCriteria());
+        $cards = $this->adapter->getCards(new TheFabCubeSearchCriteria());
 
         $this->assertNotEmpty($cards);
     }
@@ -28,7 +31,7 @@ final class TheFabCubeAdapterTest extends TestCase
     public function testCanFilterResults(): void
     {
         $cards = $this->adapter->getCards(
-            new CardsSearchCriteria([
+            new TheFabCubeSearchCriteria([
                 'name' => '10,000 Year Reunion',
                 'pitch' => new CompareWithOperator(Pitch::One),
             ]),
@@ -43,12 +46,20 @@ final class TheFabCubeAdapterTest extends TestCase
     public function testResultIsEmptyWhenFiltersDoNotMatchACard(): void
     {
         $cards = $this->adapter->getCards(
-            new CardsSearchCriteria([
+            new TheFabCubeSearchCriteria([
                 'name' => '10,000 Year Reunion',
                 'pitch' => new CompareWithOperator(Pitch::Two),
             ]),
         );
 
         $this->assertEmpty($cards);
+    }
+
+    public function testCanReturnUnderlyingFileJsonReader(): void
+    {
+        $this->assertInstanceOf(
+            FileJsonReader::class,
+            $this->adapter->getFileReader(),
+        );
     }
 }
