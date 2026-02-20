@@ -6,7 +6,7 @@ use Memuya\Fab\Enums\Set;
 use Memuya\Fab\Enums\Pitch;
 use Memuya\Fab\Enums\Rarity;
 use Memuya\Fab\Attributes\Filter;
-use Memuya\Fab\Adapters\SearchCriteria;
+use Memuya\Fab\Readers\SearchCriteria;
 use Memuya\Fab\Adapters\TheFabCube\Filters;
 use Memuya\Fab\Utilities\CompareWithOperator;
 

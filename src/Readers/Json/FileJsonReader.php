@@ -4,7 +4,7 @@ namespace Memuya\Fab\Readers\Json;
 
 use RuntimeException;
 use ReflectionException;
-use Memuya\Fab\Adapters\SearchCriteria;
+use Memuya\Fab\Readers\SearchCriteria;
 
 class FileJsonReader
 {

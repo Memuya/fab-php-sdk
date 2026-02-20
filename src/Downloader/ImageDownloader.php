@@ -3,7 +3,7 @@
 namespace Memuya\Fab\Downloader;
 
 use Memuya\Fab\Adapters\Adapter;
-use Memuya\Fab\Adapters\SearchCriteria;
+use Memuya\Fab\Readers\SearchCriteria;
 use League\Flysystem\FilesystemOperator;
 use League\Flysystem\FilesystemException;
 use Memuya\Fab\Downloader\Extractors\ImageUrlExtractor;

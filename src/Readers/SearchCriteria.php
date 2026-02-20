@@ -1,6 +1,6 @@
 <?php
 
-namespace Memuya\Fab\Adapters;
+namespace Memuya\Fab\Readers;
 
 use Exception;
 use ReflectionClass;

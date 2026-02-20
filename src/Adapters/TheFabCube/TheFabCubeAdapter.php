@@ -2,8 +2,9 @@
 
 namespace Memuya\Fab\Adapters\TheFabCube;
 
+use ReflectionException;
 use Memuya\Fab\Adapters\Adapter;
-use Memuya\Fab\Adapters\SearchCriteria;
+use Memuya\Fab\Readers\SearchCriteria;
 use Memuya\Fab\Readers\Json\FileJsonReader;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
 
@@ -21,6 +22,7 @@ readonly class TheFabCubeAdapter implements Adapter
     /**
      * @inheritDoc
      * @return array<Card>
+     * @throws ReflectionException
      */
     public function getCards(SearchCriteria $searchCriteria): array
     {

@@ -4,7 +4,7 @@ namespace Integration\Reader\Json;
 
 use PHPUnit\Framework\TestCase;
 use Memuya\Fab\Attributes\Filter;
-use Memuya\Fab\Adapters\SearchCriteria;
+use Memuya\Fab\Readers\SearchCriteria;
 use Memuya\Fab\Readers\Json\FileJsonReader;
 use Memuya\Fab\Readers\Json\Filters\Filterable;
 
