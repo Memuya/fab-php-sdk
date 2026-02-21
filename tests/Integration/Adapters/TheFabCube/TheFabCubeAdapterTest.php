@@ -16,7 +16,7 @@ final class TheFabCubeAdapterTest extends TestCase
 
     public function setUp(): void
     {
-        $cardsJsonFilePath = sprintf('%s/the_fab_cube_cards.json', dirname(__DIR__, 3));
+        $cardsJsonFilePath = sprintf('%s/example_cards.json', dirname(__DIR__, 3));
 
         $this->adapter = new TheFabCubeAdapter(new FileJsonReader($cardsJsonFilePath));
     }
