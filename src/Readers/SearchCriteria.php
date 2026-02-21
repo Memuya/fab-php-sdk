@@ -8,7 +8,6 @@ use ReflectionProperty;
 use ReflectionException;
 use Memuya\Fab\Utilities\Str;
 use Memuya\Fab\Attributes\Filter;
-use Memuya\Fab\Attributes\QueryString;
 use Memuya\Fab\Utilities\Extract\Value;
 use Memuya\Fab\Readers\Json\Filters\Filterable;
 
@@ -35,26 +34,6 @@ abstract class SearchCriteria
         foreach ($criteria as $property => $value) {
             $this->setProperty($property, $value);
         }
-    }
-
-    /**
-     * Return the options that will be a part of the query string as an array.
-     *
-     * @return array<string, mixed>
-     */
-    public function getQueryStringValues(): array
-    {
-        return $this->getValuesFor(QueryString::class);
-    }
-
-    /**
-     * Return the options that will be a part of the query string as a usable query string.
-     *
-     * @return string
-     */
-    public function toQueryString(): string
-    {
-        return http_build_query($this->getQueryStringValues());
     }
 
     /**
@@ -152,10 +131,5 @@ abstract class SearchCriteria
         }
 
         return $filters;
-    }
-
-    public function __toString()
-    {
-        return $this->toQueryString();
     }
 }
