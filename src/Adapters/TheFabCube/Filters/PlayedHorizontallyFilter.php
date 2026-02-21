@@ -11,16 +11,14 @@ class PlayedHorizontallyFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['played_horizontally']) && ! is_null($filters['played_horizontally']);
+        return isset($filters['played_horizontally']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return $card['played_horizontally'] === $filters['played_horizontally'];
-        });
+        return $item['played_horizontally'] === $filters['played_horizontally'];
     }
 }

@@ -11,22 +11,20 @@ class RarityFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['rarity']) && ! is_null($filters['rarity']);
+        return isset($filters['rarity']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            foreach ($card['printings'] as $printing) {
-                if ($printing['rarity'] === $filters['rarity']) {
-                    return true;
-                }
+        foreach ($item['printings'] as $printing) {
+            if ($printing['rarity'] === $filters['rarity']) {
+                return true;
             }
+        }
 
-            return false;
-        });
+        return false;
     }
 }

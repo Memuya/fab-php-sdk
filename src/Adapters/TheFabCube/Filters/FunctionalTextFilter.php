@@ -11,16 +11,14 @@ class FunctionalTextFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['functional_text']) && ! is_null($filters['functional_text']);
+        return isset($filters['functional_text']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return str_contains($card['functional_text'], $filters['functional_text']);
-        });
+        return str_contains(strtolower($item['functional_text']), strtolower($filters['functional_text']));
     }
 }

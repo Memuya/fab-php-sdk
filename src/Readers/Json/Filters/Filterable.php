@@ -13,11 +13,11 @@ interface Filterable
     public function canResolve(array $filters): bool;
 
     /**
-     * Apply the filter to the query.
+     * Apply the filter to the data item.
      *
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $item
      * @param array<string, mixed> $filters
-     * @return array<string, mixed>
+     * @return bool
      */
-    public function applyTo(array $data, array $filters): array;
+    public function applyTo(array $item, array $filters): bool;
 }

@@ -11,16 +11,14 @@ class CcLegalFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['commoner_legal']) && ! is_null($filters['commoner_legal']);
+        return isset($filters['commoner_legal']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return $card['commoner_legal'] === $filters['commoner_legal'];
-        });
+        return $item['cc_legal'] === $filters['cc_legal'];
     }
 }

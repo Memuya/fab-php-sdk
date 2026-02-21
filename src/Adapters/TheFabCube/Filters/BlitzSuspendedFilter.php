@@ -11,16 +11,14 @@ class BlitzSuspendedFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['blitz_suspended']) && ! is_null($filters['blitz_suspended']);
+        return isset($filters['blitz_suspended']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return $card['blitz_suspended'] === $filters['blitz_suspended'];
-        });
+        return $item['blitz_suspended'] === $filters['blitz_suspended'];
     }
 }

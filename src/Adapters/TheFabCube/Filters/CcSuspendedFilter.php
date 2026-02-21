@@ -11,16 +11,14 @@ class CcSuspendedFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['cc_suspended']) && ! is_null($filters['cc_suspended']);
+        return isset($filters['cc_suspended']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return $card['cc_suspended'] === $filters['cc_suspended'];
-        });
+        return $item['cc_suspended'] === $filters['cc_suspended'];
     }
 }

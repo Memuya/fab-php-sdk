@@ -11,17 +11,15 @@ class ArcaneFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['arcane']) && ! is_null($filters['arcane']);
+        return isset($filters['arcane']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return $card['arcane'] === $filters['arcane'];
-        });
+        return $item['arcane'] === $filters['arcane'];
     }
 }
 ;

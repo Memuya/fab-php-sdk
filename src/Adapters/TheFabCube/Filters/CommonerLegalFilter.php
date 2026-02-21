@@ -11,16 +11,14 @@ class CommonerLegalFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['blitz_legal']) && ! is_null($filters['blitz_legal']);
+        return isset($filters['blitz_legal']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return $card['blitz_legal'] === $filters['blitz_legal'];
-        });
+        return $item['commoner_legal'] === $filters['commoner_legal'];
     }
 }

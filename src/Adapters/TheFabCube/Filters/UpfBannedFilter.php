@@ -11,16 +11,14 @@ class UpfBannedFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['upf_banned']) && ! is_null($filters['upf_banned']);
+        return isset($filters['upf_banned']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return $card['upf_banned'] === $filters['upf_banned'];
-        });
+        return $item['upf_banned'] === $filters['upf_banned'];
     }
 }

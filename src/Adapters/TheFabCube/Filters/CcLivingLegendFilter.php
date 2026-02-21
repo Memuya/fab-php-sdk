@@ -11,16 +11,14 @@ class CcLivingLegendFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['cc_living_legend']) && ! is_null($filters['cc_living_legend']);
+        return isset($filters['cc_living_legend']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return $card['cc_living_legend'] === $filters['cc_living_legend'];
-        });
+        return $item['cc_living_legend'] === $filters['cc_living_legend'];
     }
 }

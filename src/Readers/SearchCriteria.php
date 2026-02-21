@@ -37,7 +37,7 @@ abstract class SearchCriteria
     }
 
     /**
-     * Return the value stored in each property that has a Filter attribute.
+     * Return the value stored in each property that has a `Filter` attribute.
      *
      * @return array<string, mixed>
      */

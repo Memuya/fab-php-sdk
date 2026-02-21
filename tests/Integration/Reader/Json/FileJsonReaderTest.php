@@ -85,11 +85,9 @@ class FileAdapterTestIdentifierFilter implements Filterable
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return str_contains($card['identifier'], $filters['identifier']);
-        });
+        return str_contains($item['identifier'], $filters['identifier']);
     }
 }
 
@@ -106,10 +104,8 @@ class FileAdapterTestCostFilter implements Filterable
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return str_contains($card['cost'], $filters['cost']);
-        });
+        return str_contains($item['cost'], $filters['cost']);
     }
 }

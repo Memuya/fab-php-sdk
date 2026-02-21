@@ -11,16 +11,14 @@ class LlLegal implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['ll_legal']) && ! is_null($filters['ll_legal']);
+        return isset($filters['ll_legal']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return $card['ll_legal'] === $filters['ll_legal'];
-        });
+        return $item['ll_legal'] === $filters['ll_legal'];
     }
 }

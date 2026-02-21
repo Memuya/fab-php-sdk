@@ -11,16 +11,14 @@ class CommonerBannedFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['commoner_banned']) && ! is_null($filters['commoner_banned']);
+        return isset($filters['commoner_banned']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return $card['commoner_banned'] === $filters['commoner_banned'];
-        });
+        return $item['commoner_banned'] === $filters['commoner_banned'];
     }
 }

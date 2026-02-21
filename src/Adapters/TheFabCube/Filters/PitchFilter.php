@@ -2,6 +2,7 @@
 
 namespace Memuya\Fab\Adapters\TheFabCube\Filters;
 
+use Memuya\Fab\Utilities\CompareWithOperator;
 use Memuya\Fab\Readers\Json\Filters\Filterable;
 
 class PitchFilter implements Filterable
@@ -17,10 +18,8 @@ class PitchFilter implements Filterable
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return $filters['pitch']->compare($card['pitch']);
-        });
+        return $filters['pitch']->compare($item['pitch']);
     }
 }

@@ -11,22 +11,20 @@ class SetFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['set']) && ! is_null($filters['set']);
+        return isset($filters['set']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            foreach ($card['printings'] as $printing) {
-                if ($printing['set_id'] === $filters['set']) {
-                    return true;
-                }
+        foreach ($item['printings'] as $printing) {
+            if ($printing['set_id'] === $filters['set']) {
+                return true;
             }
+        }
 
-            return false;
-        });
+        return false;
     }
 }

@@ -11,16 +11,14 @@ class FunctionalTextPlainFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['functional_text_plain']) && ! is_null($filters['functional_text_plain']);
+        return isset($filters['functional_text_plain']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return str_contains($card['functional_text_plain'], $filters['functional_text_plain']);
-        });
+        return str_contains(strtolower($item['functional_text_plain']), strtolower($filters['functional_text_plain']));
     }
 }

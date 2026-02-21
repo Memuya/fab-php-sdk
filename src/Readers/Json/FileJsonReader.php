@@ -5,6 +5,7 @@ namespace Memuya\Fab\Readers\Json;
 use RuntimeException;
 use ReflectionException;
 use Memuya\Fab\Readers\SearchCriteria;
+use Memuya\Fab\Readers\Json\Filters\Filterable;
 
 class FileJsonReader
 {
@@ -32,17 +33,52 @@ class FileJsonReader
      */
     public function searchData(SearchCriteria $searchCriteria): array
     {
-        $cards = $this->readFileToJson();
+        $fileData = $this->readFileToJson();
         $criteria = $searchCriteria->getFilterableValues();
+        $filters = [];
 
         foreach ($searchCriteria->getFilters() as $filter) {
-            if ($filter->canResolve($criteria)) {
-                $cards = $filter->applyTo($cards, $criteria);
+            // If we can't resolve the filter, just go to the next one.
+            if (! $filter->canResolve($criteria)) {
+                continue;
             }
+
+            /** @var array<Filterable> $filters */
+            $filters[] = $filter;
         }
 
-        // Reset array keys.
-        return array_values($cards);
+        // If no filter could resolve, return everything.
+        if (empty($filters)) {
+            return $fileData;
+        }
+
+        return array_values(
+            $this->applyFilters($fileData, $filters, $criteria),
+        );
+    }
+
+    /**
+     * Apply the resolved filters to the file data.
+     *
+     * @param array<string, mixed> $fileData
+     * @param array<Filterable> $filters
+     * @param array<string, mixed> $criteria
+     * @return array<string, mixed>
+     */
+    private function applyFilters(array $fileData, array $filters, array $criteria): array
+    {
+        return array_filter($fileData, function (array $data) use ($filters, $criteria): bool {
+            foreach ($filters as $filter) {
+                // If the filter can't apply it's check to the current line of data from the file
+                // we don't want it returned in the final result.
+                if (! $filter->applyTo($data, $criteria)) {
+                    return false;
+                }
+            }
+
+            // The filter successfully applied so we return it in the final result.
+            return true;
+        });
     }
 
     /**

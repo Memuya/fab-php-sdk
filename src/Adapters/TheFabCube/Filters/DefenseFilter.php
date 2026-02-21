@@ -11,17 +11,15 @@ class DefenseFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['defense']) && ! is_null($filters['defense']);
+        return isset($filters['defense']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return $card['defense'] === $filters['defense'];
-        });
+        return $item['defense'] === $filters['defense'];
     }
 }
 ;

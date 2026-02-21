@@ -11,16 +11,14 @@ class TypeTextFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['type_text']) && ! is_null($filters['type_text']);
+        return isset($filters['type_text']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return $card['type_text'] === $filters['type_text'];
-        });
+        return str_contains(strtolower($item['type_text']), strtolower($filters['type_text']));
     }
 }

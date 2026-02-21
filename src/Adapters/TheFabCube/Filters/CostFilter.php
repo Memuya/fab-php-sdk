@@ -11,16 +11,14 @@ class CostFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['cost']) && ! is_null($filters['cost']);
+        return isset($filters['cost']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return str_contains($card['cost'], $filters['cost']);
-        });
+        return $item['cost'] === $filters['cost'];
     }
 }

@@ -20,15 +20,13 @@ class AbilitiesAndEffectsKeywordsFilter implements Filterable
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return $this->filterIntersectsWithData(
-                data: $card,
-                filters: $filters,
-                dataKey: 'ability_and_effect_keywords',
-                filterKey: 'ability_and_effect_keywords',
-            );
-        });
+        return $this->filterIntersectsWithData(
+            data: $item,
+            filters: $filters,
+            dataKey: 'ability_and_effect_keywords',
+            filterKey: 'ability_and_effect_keywords',
+        );
     }
 }

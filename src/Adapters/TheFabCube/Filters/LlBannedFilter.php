@@ -11,16 +11,14 @@ class LlBannedFilter implements Filterable
      */
     public function canResolve(array $filters): bool
     {
-        return isset($filters['ll_banned']) && ! is_null($filters['ll_banned']);
+        return isset($filters['ll_banned']);
     }
 
     /**
      * @inheritDoc
      */
-    public function applyTo(array $data, array $filters): array
+    public function applyTo(array $item, array $filters): bool
     {
-        return array_filter($data, function ($card) use ($filters) {
-            return $card['ll_banned'] === $filters['ll_banned'];
-        });
+        return $item['ll_banned'] === $filters['ll_banned'];
     }
 }
