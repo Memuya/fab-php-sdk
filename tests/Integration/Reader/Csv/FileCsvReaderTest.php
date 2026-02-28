@@ -2,10 +2,10 @@
 
 namespace Integration\Reader\Csv;
 
-use Memuya\Fab\Readers\Csv\FileCsvReader;
 use PHPUnit\Framework\TestCase;
 use Memuya\Fab\Attributes\Filter;
 use Memuya\Fab\Readers\SearchCriteria;
+use Memuya\Fab\Readers\Csv\FileCsvReader;
 use Memuya\Fab\Readers\Json\Filters\Filterable;
 
 final class FileCsvReaderTest extends TestCase

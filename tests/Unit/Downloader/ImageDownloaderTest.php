@@ -2,15 +2,15 @@
 
 namespace Unit\Downloader;
 
+use PHPUnit\Framework\TestCase;
 use League\Flysystem\Filesystem;
-use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
 use Memuya\Fab\Adapters\Adapter;
-use Memuya\Fab\Adapters\TheFabCube\Entities\Printing;
-use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\TheFabCubeSearchCriteria;
-use Memuya\Fab\Downloader\Extractors\ImageUrlExtractor;
 use Memuya\Fab\Downloader\ImageDownloader;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
+use Memuya\Fab\Adapters\TheFabCube\Entities\Printing;
+use Memuya\Fab\Downloader\Extractors\ImageUrlExtractor;
+use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
+use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\TheFabCubeSearchCriteria;
 
 class ImageDownloaderTest extends TestCase
 {
