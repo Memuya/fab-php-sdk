@@ -8,7 +8,7 @@ use Memuya\Fab\Readers\Json\FileJsonReader;
 use Memuya\Fab\Utilities\CompareWithOperator;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
 use Memuya\Fab\Adapters\TheFabCube\TheFabCubeAdapter;
-use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\TheFabCubeSearchCriteria;
+use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\TheFabCubeSearchCriteria;
 
 final class TheFabCubeAdapterTest extends TestCase
 {
@@ -31,6 +31,21 @@ final class TheFabCubeAdapterTest extends TestCase
     public function testCanFilterResults(): void
     {
         $cards = $this->adapter->getCards(
+            new TheFabCubeSearchCriteria([
+                'name' => '10,000 Year Reunion',
+                'pitch' => new CompareWithOperator(Pitch::One),
+            ]),
+        );
+
+        $this->assertNotEmpty($cards);
+        $this->assertCount(1, $cards);
+        $this->assertIsArray($cards);
+        $this->assertSame('10,000 Year Reunion', $cards[0]['name']);
+    }
+
+    public function testCanFilterResultsAndMapToEntity(): void
+    {
+        $cards = $this->adapter->mapTo(Card::class)->getCards(
             new TheFabCubeSearchCriteria([
                 'name' => '10,000 Year Reunion',
                 'pitch' => new CompareWithOperator(Pitch::One),

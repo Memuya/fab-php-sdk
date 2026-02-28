@@ -1,6 +1,6 @@
 <?php
 
-namespace Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards;
+namespace Memuya\Fab\Adapters\TheFabCube\SearchCriteria;
 
 use Memuya\Fab\Enums\Set;
 use Memuya\Fab\Enums\Pitch;

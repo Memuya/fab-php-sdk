@@ -1,29 +1,22 @@
 <?php
 
-namespace Integration\Reader\Json;
+namespace Integration\Reader\Csv;
 
 use PHPUnit\Framework\TestCase;
 use Memuya\Fab\Attributes\Filter;
 use Memuya\Fab\Readers\SearchCriteria;
-use Memuya\Fab\Readers\Json\FileJsonReader;
+use Memuya\Fab\Readers\Csv\FileCsvReader;
 use Memuya\Fab\Readers\Json\Filters\Filterable;
 
-final class FileJsonReaderTest extends TestCase
+final class FileCsvReaderTest extends TestCase
 {
-    private FileJsonReader $reader;
+    private FileCsvReader $reader;
 
     public function setUp(): void
     {
-        $this->reader = new FileJsonReader(
-            filepath: sprintf('%s/test_cards.json', __DIR__),
+        $this->reader = new FileCsvReader(
+            filepath: sprintf('%s/test_cards.csv', __DIR__),
         );
-    }
-
-    public function testCanReadFromJsonFile(): void
-    {
-        $cards = $this->reader->searchData(new TestSearchCriteria());
-
-        $this->assertNotEmpty($cards);
     }
 
     public function testCanFilterResults(): void
@@ -31,12 +24,26 @@ final class FileJsonReaderTest extends TestCase
         $cards = $this->reader->searchData(
             new TestSearchCriteria([
                 'identifier' => 'first',
+                'cost' => '1',
             ]),
         );
 
         $this->assertNotEmpty($cards);
         $this->assertCount(1, $cards);
         $this->assertSame('first', $cards[0]['identifier']);
+        $this->assertSame('1', $cards[0]['cost']);
+    }
+
+    public function testDoesNotReturnResultsIfAllFiltersDoNotPass(): void
+    {
+        $cards = $this->reader->searchData(
+            new TestSearchCriteria([
+                'identifier' => 'first',
+                'cost' => '2',
+            ]),
+        );
+
+        $this->assertEmpty($cards);
     }
 
     public function testResultIsEmptyWhenFiltersDoNotMatchACard(): void
@@ -48,6 +55,24 @@ final class FileJsonReaderTest extends TestCase
         );
 
         $this->assertEmpty($cards);
+    }
+
+    public function testCanChangeTheSeparatorNeededToReadTheCsv(): void
+    {
+        $reader = new FileCsvReader(
+            filepath: sprintf('%s/test_cards_tabbed.csv', __DIR__),
+            separator: "\t",
+        );
+
+        $cards = $reader->searchData(
+            new TestSearchCriteria([
+                'identifier' => 'second',
+            ]),
+        );
+
+        $this->assertNotEmpty($cards);
+        $this->assertCount(1, $cards);
+        $this->assertSame('second', $cards[0]['identifier']);
     }
 }
 
