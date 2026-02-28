@@ -1,13 +1,13 @@
 <?php
 
-namespace Integration\Adapters\TheFabCube\SearchCriteria\Cards;
+namespace Integration\Adapters\TheFabCube\SearchCriteria;
 
-use Memuya\Fab\Enums\Set;
+use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\TheFabCubeSearchCriteria;
 use Memuya\Fab\Enums\Pitch;
 use Memuya\Fab\Enums\Rarity;
-use PHPUnit\Framework\TestCase;
+use Memuya\Fab\Enums\Set;
 use Memuya\Fab\Utilities\CompareWithOperator;
-use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\TheFabCubeSearchCriteria;
+use PHPUnit\Framework\TestCase;
 
 final class CardsSearchCriteriaTest extends TestCase
 {

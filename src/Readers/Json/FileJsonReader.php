@@ -3,11 +3,11 @@
 namespace Memuya\Fab\Readers\Json;
 
 use RuntimeException;
-use ReflectionException;
+use Memuya\Fab\Readers\Reader;
 use Memuya\Fab\Readers\SearchCriteria;
 use Memuya\Fab\Readers\Json\Filters\Filterable;
 
-class FileJsonReader
+class FileJsonReader implements Reader
 {
     /**
      * The location of the JSON file.
@@ -25,11 +25,7 @@ class FileJsonReader
     }
 
     /**
-     * Read and filter cards from the registered JSON file.
-     *
-     * @param SearchCriteria $searchCriteria
-     * @return array<string, mixed>
-     * @throws ReflectionException
+     * @inheritDoc
      */
     public function searchData(SearchCriteria $searchCriteria): array
     {
