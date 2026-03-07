@@ -59,6 +59,7 @@ class Value
     public function extract(): mixed
     {
         foreach (self::$supportedTypes as $type => $extractor) {
+            /** @var class-string $type */
             if (! $this->value instanceof $type) {
                 continue;
             }

@@ -79,6 +79,38 @@ abstract class SearchCriteria
     }
 
     /**
+     * Return the registered filter classes for each property.
+     *
+     * @return list<Filterable>
+     * @throws ReflectionException
+     */
+    public function getFilters(): array
+    {
+        /** @var list<Filterable> $filters */
+        $filters = [];
+        $reflection = new ReflectionClass($this);
+
+        foreach ($reflection->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
+            $attribute = $property->getAttributes(Filter::class)[0] ?? null;
+
+            if ($attribute === null) {
+                continue;
+            }
+
+            $instance = $attribute->newInstance();
+            $reflection = new ReflectionClass($instance->filterClass);
+
+            if (! $reflection->implementsInterface(Filterable::class)) {
+                continue;
+            }
+
+            $filters[] = $reflection->newInstance();
+        }
+
+        return $filters;
+    }
+
+    /**
      * Set a property's value, using a setter method if found.
      *
      * @param string $property
@@ -100,36 +132,5 @@ abstract class SearchCriteria
         }
 
         $this->{$property} = $value;
-    }
-
-    /**
-     * Return the registered filter classes for each property.
-     *
-     * @return list<Filterable>
-     * @throws ReflectionException
-     */
-    public function getFilters(): array
-    {
-        $reflection = new ReflectionClass($this);
-        $filters = [];
-
-        foreach ($reflection->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
-            $attribute = $property->getAttributes(Filter::class)[0] ?? null;
-
-            if ($attribute === null) {
-                continue;
-            }
-
-            $instance = $attribute->newInstance();
-            $reflection = new ReflectionClass($instance->filterClass);
-
-            if (! $reflection->implementsInterface(Filterable::class)) {
-                continue;
-            }
-
-            $filters[] = $reflection->newInstance();
-        }
-
-        return $filters;
     }
 }

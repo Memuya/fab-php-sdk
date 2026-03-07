@@ -10,7 +10,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Printing;
 use Memuya\Fab\Downloader\Extractors\ImageUrlExtractor;
 use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
-use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\Cards\TheFabCubeSearchCriteria;
+use Memuya\Fab\Adapters\TheFabCube\SearchCriteria\TheFabCubeSearchCriteria;
 
 class ImageDownloaderTest extends TestCase
 {
