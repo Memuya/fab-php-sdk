@@ -33,7 +33,7 @@ class TheFabCubeAdapter implements Adapter
 
     /**
      * @inheritDoc
-     * @return list<Card>
+     * @return list<array<string, mixed>>|list<Entity>
      * @throws ReflectionException
      */
     public function getCards(SearchCriteria $searchCriteria): array

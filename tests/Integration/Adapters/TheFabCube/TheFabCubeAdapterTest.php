@@ -39,12 +39,12 @@ final class TheFabCubeAdapterTest extends TestCase
 
         $this->assertNotEmpty($cards);
         $this->assertCount(1, $cards);
-        $this->assertIsArray($cards);
         $this->assertSame('10,000 Year Reunion', $cards[0]['name']);
     }
 
     public function testCanFilterResultsAndMapToEntity(): void
     {
+        /** @var list<Card> $cards */
         $cards = $this->adapter->mapTo(Card::class)->getCards(
             new TheFabCubeSearchCriteria([
                 'name' => '10,000 Year Reunion',

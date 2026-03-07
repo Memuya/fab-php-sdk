@@ -21,7 +21,7 @@ readonly class FileCsvReader implements Reader
     {
         /** @var list<Filterable> $filters */
         $filters = [];
-        /** @var list<array<string, string>> $results */
+        /** @var array<string, mixed> $results */
         $results = [];
         $stream = $this->openFile();
         $headers = fgetcsv($stream, separator: $this->separator);
@@ -65,7 +65,7 @@ readonly class FileCsvReader implements Reader
     /**
      * Open the CSV file.
      *
-     * @return resource|false
+     * @return resource
      * @throws RuntimeException
      */
     private function openFile()

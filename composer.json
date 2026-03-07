@@ -14,7 +14,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "9.5.5",
-        "friendsofphp/php-cs-fixer": "^3.64"
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "phpstan/phpstan": "*"
     },
     "autoload": {
         "psr-4": {
@@ -25,6 +26,8 @@
     "scripts": {
         "fix-dry": "php-cs-fixer fix --dry-run --diff",
         "fix": "php-cs-fixer fix",
+        "phpstan": "phpstan analyse -c phpstan.neon",
+        "phpstan-ci": "phpstan analyse -c phpstan.neon --memory-limit=256M --no-ansi",
         "test": "phpunit tests/"
     }
 }

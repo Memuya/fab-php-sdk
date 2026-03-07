@@ -48,39 +48,39 @@ class FileJsonReader implements Reader
             return $fileData;
         }
 
-        return array_values(
-            $this->applyFilters($fileData, $filters, $criteria),
-        );
+        return $this->applyFilters($fileData, $filters, $criteria);
     }
 
     /**
      * Apply the resolved filters to the file data.
      *
-     * @param array<string, mixed> $fileData
+     * @param list<array<string, mixed>> $fileData
      * @param array<Filterable> $filters
      * @param array<string, mixed> $criteria
-     * @return array<string, mixed>
+     * @return list<array<string, mixed>>
      */
     private function applyFilters(array $fileData, array $filters, array $criteria): array
     {
-        return array_filter($fileData, function (array $data) use ($filters, $criteria): bool {
-            foreach ($filters as $filter) {
-                // If the filter can't apply it's check to the current line of data from the file
-                // we don't want it returned in the final result.
-                if (! $filter->applyTo($data, $criteria)) {
-                    return false;
+        return array_values(
+            array_filter($fileData, function (array $data) use ($filters, $criteria): bool {
+                foreach ($filters as $filter) {
+                    // If the filter can't apply it's check to the current line of data from the file
+                    // we don't want it returned in the final result.
+                    if (! $filter->applyTo($data, $criteria)) {
+                        return false;
+                    }
                 }
-            }
 
-            // The filter successfully applied so we return it in the final result.
-            return true;
-        });
+                // The filter successfully applied so we return it in the final result.
+                return true;
+            })
+        );
     }
 
     /**
      * Read the file into a local JSON array.
      *
-     * @return array<string, mixed>
+     * @return list<array<string, mixed>>
      * @throws RuntimeException
      */
     private function readFileToJson(): array
