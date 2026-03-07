@@ -73,7 +73,7 @@ class FileJsonReader implements Reader
 
                 // The filter successfully applied so we return it in the final result.
                 return true;
-            })
+            }),
         );
     }
 
