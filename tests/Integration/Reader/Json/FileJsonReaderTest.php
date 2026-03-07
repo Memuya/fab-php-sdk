@@ -21,14 +21,14 @@ final class FileJsonReaderTest extends TestCase
 
     public function testCanReadFromJsonFile(): void
     {
-        $cards = $this->reader->searchData(new TestSearchCriteria());
+        $cards = $this->reader->searchFile(new TestSearchCriteria());
 
         $this->assertNotEmpty($cards);
     }
 
     public function testCanFilterResults(): void
     {
-        $cards = $this->reader->searchData(
+        $cards = $this->reader->searchFile(
             new TestSearchCriteria([
                 'identifier' => 'first',
             ]),
@@ -41,7 +41,7 @@ final class FileJsonReaderTest extends TestCase
 
     public function testResultIsEmptyWhenFiltersDoNotMatchACard(): void
     {
-        $cards = $this->reader->searchData(
+        $cards = $this->reader->searchFile(
             new TestSearchCriteria([
                 'identifier' => 'does_not_exist',
             ]),

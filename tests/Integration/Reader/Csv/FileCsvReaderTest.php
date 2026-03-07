@@ -21,7 +21,7 @@ final class FileCsvReaderTest extends TestCase
 
     public function testCanFilterResults(): void
     {
-        $cards = $this->reader->searchData(
+        $cards = $this->reader->searchFile(
             new TestSearchCriteria([
                 'identifier' => 'first',
                 'cost' => '1',
@@ -36,7 +36,7 @@ final class FileCsvReaderTest extends TestCase
 
     public function testDoesNotReturnResultsIfAllFiltersDoNotPass(): void
     {
-        $cards = $this->reader->searchData(
+        $cards = $this->reader->searchFile(
             new TestSearchCriteria([
                 'identifier' => 'first',
                 'cost' => '2',
@@ -48,7 +48,7 @@ final class FileCsvReaderTest extends TestCase
 
     public function testResultIsEmptyWhenFiltersDoNotMatchACard(): void
     {
-        $cards = $this->reader->searchData(
+        $cards = $this->reader->searchFile(
             new TestSearchCriteria([
                 'identifier' => 'does_not_exist',
             ]),
@@ -64,7 +64,7 @@ final class FileCsvReaderTest extends TestCase
             separator: "\t",
         );
 
-        $cards = $reader->searchData(
+        $cards = $reader->searchFile(
             new TestSearchCriteria([
                 'identifier' => 'second',
             ]),

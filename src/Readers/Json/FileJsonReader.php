@@ -27,7 +27,7 @@ class FileJsonReader implements Reader
     /**
      * @inheritDoc
      */
-    public function searchData(SearchCriteria $searchCriteria): array
+    public function searchFile(SearchCriteria $searchCriteria): array
     {
         $fileData = $this->readFileToJson();
         $criteria = $searchCriteria->getFilterableValues();

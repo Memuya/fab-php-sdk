@@ -38,7 +38,7 @@ class TheFabCubeAdapter implements Adapter
      */
     public function getCards(SearchCriteria $searchCriteria): array
     {
-        $cards = $this->fileReader->searchData($searchCriteria);
+        $cards = $this->fileReader->searchFile($searchCriteria);
 
         if (! $this->entity) {
             return $cards;
