@@ -2,8 +2,8 @@
 
 namespace Tests\Integration\Reader\Json;
 
-use Tests\Fixtures\TestSearchCriteria;
 use PHPUnit\Framework\TestCase;
+use Tests\Fixtures\TestSearchCriteria;
 use Memuya\Fab\Readers\Json\FileJsonReader;
 
 final class FileJsonReaderTest extends TestCase

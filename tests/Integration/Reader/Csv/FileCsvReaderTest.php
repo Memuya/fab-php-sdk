@@ -2,8 +2,8 @@
 
 namespace Tests\Integration\Reader\Csv;
 
-use Tests\Fixtures\TestSearchCriteria;
 use PHPUnit\Framework\TestCase;
+use Tests\Fixtures\TestSearchCriteria;
 use Memuya\Fab\Readers\Csv\FileCsvReader;
 
 final class FileCsvReaderTest extends TestCase
