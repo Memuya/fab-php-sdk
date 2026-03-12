@@ -1,6 +1,6 @@
 <?php
 
-namespace Integration\Adapters\TheFabCube\SearchCriteria;
+namespace Tests\Integration\Adapters\TheFabCube\SearchCriteria;
 
 use Memuya\Fab\Enums\Set;
 use Memuya\Fab\Enums\Pitch;

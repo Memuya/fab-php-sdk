@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit\Downloader;
+namespace Tests\Unit\Downloader;
 
 use PHPUnit\Framework\TestCase;
 use League\Flysystem\Filesystem;

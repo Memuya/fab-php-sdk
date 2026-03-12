@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit\Downloader\Extractors;
+namespace Tests\Unit\Downloader\Extractors;
 
 use PHPUnit\Framework\TestCase;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Card;

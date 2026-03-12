@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit\Utilities\Extract;
+namespace Tests\Unit\Utilities\Extract;
 
 use Memuya\Fab\Enums\HeroClass;
 use PHPUnit\Framework\TestCase;

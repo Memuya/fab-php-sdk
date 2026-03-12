@@ -19,7 +19,8 @@
     },
     "autoload": {
         "psr-4": {
-          "Memuya\\Fab\\": "src/"
+          "Memuya\\Fab\\": "src/",
+          "Tests\\": "tests/"
         }
     },
     "minimum-stability": "stable",

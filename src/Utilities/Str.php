@@ -43,7 +43,7 @@ class Str
      * Replace characters with another in the given string.
      *
      * @param string $string
-     * @param string|array $search
+     * @param string|list<string> $search
      * @param string $replace
      * @return string
      */

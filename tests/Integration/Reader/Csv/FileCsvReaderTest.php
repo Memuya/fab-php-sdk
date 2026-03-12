@@ -1,12 +1,10 @@
 <?php
 
-namespace Integration\Reader\Csv;
+namespace Tests\Integration\Reader\Csv;
 
+use Tests\Fixtures\TestSearchCriteria;
 use PHPUnit\Framework\TestCase;
-use Memuya\Fab\Attributes\Filter;
-use Memuya\Fab\Readers\SearchCriteria;
 use Memuya\Fab\Readers\Csv\FileCsvReader;
-use Memuya\Fab\Readers\Json\Filters\Filterable;
 
 final class FileCsvReaderTest extends TestCase
 {
@@ -73,52 +71,5 @@ final class FileCsvReaderTest extends TestCase
         $this->assertNotEmpty($cards);
         $this->assertCount(1, $cards);
         $this->assertSame('second', $cards[0]['identifier']);
-    }
-}
-
-class TestSearchCriteria extends SearchCriteria
-{
-    #[Filter(IdentifierFilter::class)]
-    public string $identifier;
-
-    #[Filter(CostFilter::class)]
-    public string $cost;
-}
-
-class IdentifierFilter implements Filterable
-{
-    /**
-     * @inheritDoc
-     */
-    public function canResolve(array $filters): bool
-    {
-        return isset($filters['identifier']);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function applyTo(array $item, array $filters): bool
-    {
-        return str_contains($item['identifier'], $filters['identifier']);
-    }
-}
-
-class CostFilter implements Filterable
-{
-    /**
-     * @inheritDoc
-     */
-    public function canResolve(array $filters): bool
-    {
-        return isset($filters['cost']);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function applyTo(array $item, array $filters): bool
-    {
-        return str_contains($item['cost'], $filters['cost']);
     }
 }

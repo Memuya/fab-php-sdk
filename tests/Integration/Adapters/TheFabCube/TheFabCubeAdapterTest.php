@@ -1,6 +1,6 @@
 <?php
 
-namespace Integration\Adapters\TheFabCube;
+namespace Tests\Integration\Adapters\TheFabCube;
 
 use Memuya\Fab\Enums\Pitch;
 use PHPUnit\Framework\TestCase;

@@ -1,12 +1,10 @@
 <?php
 
-namespace Integration\Reader\Json;
+namespace Tests\Integration\Reader\Json;
 
+use Tests\Fixtures\TestSearchCriteria;
 use PHPUnit\Framework\TestCase;
-use Memuya\Fab\Attributes\Filter;
-use Memuya\Fab\Readers\SearchCriteria;
 use Memuya\Fab\Readers\Json\FileJsonReader;
-use Memuya\Fab\Readers\Json\Filters\Filterable;
 
 final class FileJsonReaderTest extends TestCase
 {
@@ -48,52 +46,5 @@ final class FileJsonReaderTest extends TestCase
         );
 
         $this->assertEmpty($cards);
-    }
-}
-
-class TestSearchCriteria extends SearchCriteria
-{
-    #[Filter(IdentifierFilter::class)]
-    public string $identifier;
-
-    #[Filter(CostFilter::class)]
-    public string $cost;
-}
-
-class IdentifierFilter implements Filterable
-{
-    /**
-     * @inheritDoc
-     */
-    public function canResolve(array $filters): bool
-    {
-        return isset($filters['identifier']);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function applyTo(array $item, array $filters): bool
-    {
-        return str_contains($item['identifier'], $filters['identifier']);
-    }
-}
-
-class CostFilter implements Filterable
-{
-    /**
-     * @inheritDoc
-     */
-    public function canResolve(array $filters): bool
-    {
-        return isset($filters['cost']);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function applyTo(array $item, array $filters): bool
-    {
-        return str_contains($item['cost'], $filters['cost']);
     }
 }
