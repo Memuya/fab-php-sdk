@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use League\Flysystem\Filesystem;
 use Memuya\Fab\Adapters\Adapter;
 use Memuya\Fab\Downloader\ImageDownloader;
+use Memuya\Fab\Downloader\ValueObjects\Url;
 use PHPUnit\Framework\MockObject\MockObject;
 use Memuya\Fab\Adapters\TheFabCube\Entities\Printing;
 use Memuya\Fab\Downloader\Extractors\ImageUrlExtractor;
@@ -53,7 +54,7 @@ class ImageDownloaderTest extends TestCase
         $urls = $this->imageDownloader->getImageUrls(new TheFabCubeSearchCriteria());
 
         $this->assertCount(1, $urls);
-        $this->assertSame('https://example.com/image1.jpg', $urls[0]);
+        $this->assertSame('https://example.com/image1.jpg', $urls[0]->value);
     }
 
     public function testDownloadFromUrls(): void
@@ -74,8 +75,8 @@ class ImageDownloaderTest extends TestCase
             ->willReturn('fake_image_content');
 
         $urls = [
-            'https://example.com/image1.jpg',
-            'https://example.com/image2.png',
+            new Url('https://example.com/image1.jpg'),
+            new Url('https://example.com/image2.png'),
         ];
 
         $downloader->downloadFromUrls($urls);

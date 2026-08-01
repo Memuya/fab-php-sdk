@@ -15,7 +15,7 @@ trait FiltersData
      */
     public function filterIntersectsWithData(array $data, array $filters, string $dataKey, string $filterKey): bool
     {
-        $cardData = array_map(fn($type) => strtolower($type), $data[$dataKey]);
+        $cardData = array_map(fn($type) => strtolower($type), (array) $data[$dataKey]);
         $filterData = array_map(fn($type) => strtolower($type), $filters[$filterKey]);
 
         return count(array_intersect($cardData, $filterData)) !== 0;

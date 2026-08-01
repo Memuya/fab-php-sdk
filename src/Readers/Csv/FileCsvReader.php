@@ -19,27 +19,22 @@ readonly class FileCsvReader implements Reader
      */
     public function searchFile(SearchCriteria $searchCriteria): array
     {
-        /** @var list<Filterable> $filters */
-        $filters = [];
         /** @var array<string, mixed> $results */
         $results = [];
         $stream = $this->openFile();
-        $headers = fgetcsv($stream, separator: $this->separator);
+        $headers = fgetcsv($stream, separator: $this->separator, escape: "\\");
         $criteria = $searchCriteria->getFilterableValues();
 
-        while (($row = fgetcsv($stream, separator: $this->separator)) !== false) {
+        while (($row = fgetcsv($stream, separator: $this->separator, escape: "\\")) !== false) {
             $allFiltersMatchRow = true;
             /** @var array<string, string> $data */
             $data = array_combine($headers, $row);
 
-            foreach ($searchCriteria->getFilters() as $filter) {
-                if (! $filter->canResolve($criteria)) {
-                    continue;
-                }
-
-                /** @var list<Filterable> $filters */
-                $filters[] = $filter;
-            }
+            /** @var list<Filterable> $filters */
+            $filters = array_filter(
+                $searchCriteria->getFilters(),
+                fn(Filterable $filter) => $filter->canResolve($criteria),
+            );
 
             foreach ($filters as $filter) {
                 // If a filter doesn't match the row data, we flag it and stop applying any other filters.

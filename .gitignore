@@ -5,3 +5,4 @@ Dockerfile
 .php-cs-fixer.cache
 .idea/
 card.json
+card.csv

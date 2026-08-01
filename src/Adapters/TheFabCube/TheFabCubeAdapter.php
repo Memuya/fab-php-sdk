@@ -14,7 +14,7 @@ use Memuya\Fab\Adapters\TheFabCube\Entities\Card;
  * This adapter is intended to be used with the JSON/CSV file located in the repo link below.
  *
  * @note If you are using the CSV file, please be sure to convert the header column values to
- * lowercase snake case so it is compatible with the search criteria. e.g. "Unique IO" -> "unique_id".
+ * lowercase snake case so it is compatible with the search criteria. e.g. "Unique ID" -> "unique_id".
  *
  * @link https://github.com/the-fab-cube/flesh-and-blood-cards
  * @link https://raw.githubusercontent.com/the-fab-cube/flesh-and-blood-cards/refs/heads/develop/json/english/card.json
@@ -59,6 +59,13 @@ class TheFabCubeAdapter implements Adapter
     public function mapTo(string $entity): self
     {
         $this->entity = $entity;
+
+        return $this;
+    }
+
+    public function removeMapTo(): self
+    {
+        $this->entity = null;
 
         return $this;
     }

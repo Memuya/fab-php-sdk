@@ -58,6 +58,24 @@ final class TheFabCubeAdapterTest extends TestCase
         $this->assertSame('10,000 Year Reunion', $cards[0]->name);
     }
 
+    public function testRemovesTheEntityMappingFromTheResults(): void
+    {
+        $cards = $this->adapter
+            ->mapTo(Card::class) // First map to an entity
+            ->removeMapTo() // Then remove it.
+            ->getCards(
+                new TheFabCubeSearchCriteria([
+                    'name' => '10,000 Year Reunion',
+                    'pitch' => new CompareWithOperator(Pitch::One),
+                ]),
+            );
+
+        $this->assertNotEmpty($cards);
+        $this->assertCount(1, $cards);
+        $this->assertIsArray($cards[0]);
+        $this->assertSame('10,000 Year Reunion', $cards[0]['name']);
+    }
+
     public function testResultIsEmptyWhenFiltersDoNotMatchACard(): void
     {
         $cards = $this->adapter->getCards(

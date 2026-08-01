@@ -6,6 +6,7 @@ use Memuya\Fab\Adapters\Adapter;
 use Memuya\Fab\Readers\SearchCriteria;
 use League\Flysystem\FilesystemOperator;
 use League\Flysystem\FilesystemException;
+use Memuya\Fab\Downloader\ValueObjects\Url;
 use Memuya\Fab\Downloader\Extractors\ImageUrlExtractor;
 
 class ImageDownloader
@@ -34,7 +35,7 @@ class ImageDownloader
      * Return all the image URLs based on the given filters.
      *
      * @param SearchCriteria $searchCriteria
-     * @return array<string>
+     * @return list<Url>
      */
     public function getImageUrls(SearchCriteria $searchCriteria): array
     {
@@ -44,10 +45,10 @@ class ImageDownloader
         foreach ($cards as $card) {
             $printings = ($this->extractor)()($card);
 
-            $imageUrls = array_merge(
-                $imageUrls,
-                array_filter($printings),
-            );
+            $imageUrls = [
+                ...$imageUrls,
+                ...array_map(fn(string $url): Url => new Url($url), $printings),
+            ];
         }
 
         return $imageUrls;
@@ -56,7 +57,7 @@ class ImageDownloader
     /**
      * Download the images from the given URLs.
      *
-     * @param array<string> $urls
+     * @param list<Url> $urls
      * @return void
      * @throws FilesystemException
      */
@@ -73,22 +74,22 @@ class ImageDownloader
     /**
      * Download the image content from the given URL.
      *
-     * @param string $url
+     * @param Url $url
      * @return string|false
      */
-    public function getImageContentFromUrl(string $url): string|false
+    public function getImageContentFromUrl(Url $url): string|false
     {
-        return file_get_contents($url);
+        return file_get_contents($url->value);
     }
 
     /**
      * Get the name of the file from the URL.
      *
-     * @param string $url
+     * @param Url $url
      * @return string
      */
-    private function getImageNameFromUrl(string $url): string
+    private function getImageNameFromUrl(Url $url): string
     {
-        return basename($url);
+        return basename($url->value);
     }
 }
