@@ -19,6 +19,7 @@ final class StrTest extends TestCase
         $this->assertSame($expected, Str::toPascalCase($snake_case));
         $this->assertSame($expected, Str::toPascalCase($dashes));
         $this->assertSame($expected, Str::toPascalCase($camel_case));
+        $this->assertSame($expected, Str::toPascalCase($expected));
     }
 
     public function testToCamelCase()
@@ -31,6 +32,7 @@ final class StrTest extends TestCase
         $this->assertSame($expected, Str::toCamelCase($snake_case));
         $this->assertSame($expected, Str::toCamelCase($dashes));
         $this->assertSame($expected, Str::toCamelCase($pascal_case));
+        $this->assertSame($expected, Str::toCamelCase($expected));
     }
 
     public function testRemoveWhiteSpace()
@@ -39,6 +41,7 @@ final class StrTest extends TestCase
         $expected = 'helloworld';
 
         $this->assertSame($expected, Str::removeWhiteSpace($original_string));
+        $this->assertSame($expected, Str::removeWhiteSpace($expected));
     }
 
     public function testReplace()
@@ -47,5 +50,6 @@ final class StrTest extends TestCase
         $expected = 'hello all';
 
         $this->assertSame($expected, Str::replace($original_string, 'world', 'all'));
+        $this->assertSame($expected, Str::replace($expected, 'world', 'all'));
     }
 }
