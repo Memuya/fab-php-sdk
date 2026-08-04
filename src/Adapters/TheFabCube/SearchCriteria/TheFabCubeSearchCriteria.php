@@ -306,7 +306,7 @@ class TheFabCubeSearchCriteria extends SearchCriteria
      * @var Set
      */
     #[Filter(Filters\SetFilter::class)]
-    public Set $set;
+    public Set|string $set;
 
     /**
      * The rarity to filter by.

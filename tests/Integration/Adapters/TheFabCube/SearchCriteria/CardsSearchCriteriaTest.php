@@ -151,10 +151,16 @@ final class CardsSearchCriteriaTest extends TestCase
         $this->assertSame($typeText, $config->type_text);
     }
 
-    public function testCanSetValidSet()
+    public function testCanSetValidSetWithEnum()
     {
         $config = new TheFabCubeSearchCriteria(['set' => Set::Monarch]);
         $this->assertSame(Set::Monarch, $config->set);
+    }
+
+    public function testCanSetValidSetWithString()
+    {
+        $config = new TheFabCubeSearchCriteria(['set' => 'MON']);
+        $this->assertSame('MON', $config->set);
     }
 
     public function testCanSetValidRarity()
