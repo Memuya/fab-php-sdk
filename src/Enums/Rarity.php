@@ -4,6 +4,7 @@ namespace Memuya\Fab\Enums;
 
 enum Rarity: string
 {
+    case Base = 'B';
     case Common = 'C';
     case Rare = 'R';
     case SuperRare = 'S';
