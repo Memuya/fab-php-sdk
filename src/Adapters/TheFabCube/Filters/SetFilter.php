@@ -19,12 +19,9 @@ class SetFilter implements Filterable
      */
     public function applyTo(array $item, array $filters): bool
     {
-        foreach ($item['printings'] as $printing) {
-            if ($printing['set_id'] === $filters['set']) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any(
+            $item['printings'],
+            fn(array $printing): bool => $printing['set_id'] === $filters['set'],
+        );
     }
 }
