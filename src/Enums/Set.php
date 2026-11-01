@@ -70,4 +70,6 @@ enum Set: string
 
     // Multiplayer Products
     case RoundTheTable = 'TCC'; // 2023
+
+    case MasterPackWarrior = 'MPW';
 }

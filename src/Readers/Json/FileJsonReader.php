@@ -64,7 +64,7 @@ class FileJsonReader implements Reader
         return array_values(
             array_filter($fileData, function (array $data) use ($filters, $criteria): bool {
                 foreach ($filters as $filter) {
-                    // If the filter can't apply it's check to the current line of data from the file
+                    // If the filter can't apply its check to the current line of data from the file
                     // we don't want it returned in the final result.
                     if (! $filter->applyTo($data, $criteria)) {
                         return false;

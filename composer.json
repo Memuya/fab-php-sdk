@@ -1,5 +1,6 @@
 {
     "name": "memuya/fab-php-sdk",
+    "version": "1.0.0",
     "description": "A library to query and filter a list of cards and communicate with external APIs.",
     "authors": [
         {
