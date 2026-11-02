@@ -20,4 +20,22 @@ trait FiltersData
 
         return count(array_intersect($cardData, $filterData)) !== 0;
     }
+
+    /**
+     * Determine if all the card values intersects with the data value.
+     *
+     * @param array<string, array<string>> $data
+     * @param array<string, array<string>> $filters
+     * @param string $dataKey
+     * @param string $filterKey
+     * @return bool
+     */
+    public function filterIntersectsWithAllData(array $data, array $filters, string $dataKey, string $filterKey): bool
+    {
+        $cardData = array_map(fn($type) => strtolower($type), (array) $data[$dataKey]);
+        $filterData = array_map(fn($type) => strtolower($type), $filters[$filterKey]);
+
+        return count(array_intersect($cardData, $filterData)) === count($filterData);
+    }
+
 }

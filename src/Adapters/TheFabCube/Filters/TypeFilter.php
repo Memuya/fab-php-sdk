@@ -22,7 +22,7 @@ class TypeFilter implements Filterable
      */
     public function applyTo(array $item, array $filters): bool
     {
-        return $this->filterIntersectsWithData(
+        return $this->filterIntersectsWithAllData(
             data: $item,
             filters: $filters,
             dataKey: 'types',
