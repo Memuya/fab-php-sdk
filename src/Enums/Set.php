@@ -21,6 +21,8 @@ enum Set: string
     case Rosetta = 'ROS'; // 2024
     case TheHunted = 'HNT'; // 2025
     case HighSeas = 'SEA'; // 2025
+    case CompendiumOfRathe = 'PEN'; // 2026
+    case OmensOfTheThirdAge = 'OMN'; // 2026
 
     // Blitz Decks
     case PrismBlitzDeck = 'PSM'; // Monarch Blitz Deck - Prism
@@ -65,11 +67,13 @@ enum Set: string
     case ArmoryDeckJarlVetreidi = 'ADJ'; // 2024
     case ArmoryDeckDash = 'ADD'; // 2024
     case ArmoryDeckKayo = 'ADK'; // 2024
-    case ArmoryDeckAzalea = 'ADZ'; // 2024
+    case ArmoryDeckAzalea = 'AAZ'; // 2024
     case ArmoryDeckBoltyn = 'ADB'; // 2024
 
     // Multiplayer Products
     case RoundTheTable = 'TCC'; // 2023
 
-    case MasterPackWarrior = 'MPW';
+    case MasteryPackGuardian = 'MPG'; // 2025
+    case MasterPackWarrior = 'MPW'; // 2026
+    case MasterPackAssassin = 'MPA'; // 2027
 }
